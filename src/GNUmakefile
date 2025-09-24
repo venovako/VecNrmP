@@ -19,22 +19,30 @@ RM=rm -rfv
 ifndef LIBPVN
 LIBPVN=../../libpvn
 endif # !LIBPVN
+
 CC=$(shell $(LIBPVN)/src/pvn.exe -C)
-CPPFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i)
+CPPFLAGSx=$(shell $(LIBPVN)/src/pvn.exe -i)
 CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -c)
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -l)
 
+EXES += \
+crh_relerr.exe \
+laf_relerr.exe \
+reh_relerr.exe \
+rhh_relerr.exe \
+Blue.exe
+
 .PHONY: all help clean
 
-all:
-	@echo "CC=$(CC)"
-	@echo "CPPFLAGS=$(CPPFLAGS)"
-	@echo "CFLAGS=$(CFLAGS)"
-	@echo "LDFLAGS=$(LDFLAGS)"
+all: $(EXES)
+	@echo "BUILT: $(EXES)"
 
 help:
 	@echo $(MAKE) "[all|clean|help]"
+
+%.exe : %.c
+	$(CC) $(CPPFLAGS) $(CLFLAGS) $< -o $@ $(LDFLAGS)
 
 Blue.exe: Blue.f90
 	gfortran -cpp -o $@ Blue.f90
