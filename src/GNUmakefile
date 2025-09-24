@@ -20,6 +20,7 @@ ifndef LIBPVN
 LIBPVN=../../libpvn
 endif # !LIBPVN
 CC=$(shell $(LIBPVN)/src/pvn.exe -C)
+FC=$(subst icx,ifx,$(CC))
 CPPFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i)
 CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -c)
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
@@ -35,6 +36,9 @@ all:
 
 help:
 	@echo $(MAKE) "[all|clean|help]"
+
+Blue.exe: Blue.f90
+	$(FC) -standard-semantics -fprotect-parens -o $@ Blue.f90
 
 clean:
 	-$(RM) *.exe
