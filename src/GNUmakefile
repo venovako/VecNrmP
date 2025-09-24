@@ -21,12 +21,11 @@ LIBPVN=../../libpvn
 endif # !LIBPVN
 
 CC=$(shell $(LIBPVN)/src/pvn.exe -C)
-CPPFLAGSx=$(shell $(LIBPVN)/src/pvn.exe -i)
-CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -c)
+CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i) $(shell $(LIBPVN)/src/pvn.exe -c)
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -l)
 
-EXES += \
+EXES=nrmp.exe  \
 crh_relerr.exe \
 laf_relerr.exe \
 reh_relerr.exe \
