@@ -25,12 +25,13 @@ CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i) $(shell $(LIBPVN)/src/pvn.exe -c)
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -l)
 
-EXES=nrmp.exe  \
-crh_relerr.exe \
-laf_relerr.exe \
-reh_relerr.exe \
-rhh_relerr.exe \
-Blue.exe
+SRCS=dmc.c   \
+nrmp.c       \
+crh_relerr.c \
+laf_relerr.c \
+reh_relerr.c \
+rhh_relerr.c
+EXES=$(SRCS:.c=.exe) Blue.exe
 
 .PHONY: all help clean
 
