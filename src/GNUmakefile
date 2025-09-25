@@ -44,7 +44,7 @@ help:
 	$(CC) $(CPPFLAGS) $(CLFLAGS) $< -o $@ $(LDFLAGS)
 
 Blue.exe: Blue.f90
-	gfortran -cpp -o $@ Blue.f90
+	gfortran$(GNU) -cpp -o $@ Blue.f90
 
 clean:
 	-$(RM) *.exe
