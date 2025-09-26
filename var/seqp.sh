@@ -1,10 +1,10 @@
 #!/bin/bash
 source ./env.sh
-cd ../../libpvn/src
-for O in nd ns ud us
+cd ../src
+for O in ndp udp
 do
 	echo -n "Running $O.sh ... "
-	../../VecNrmP/var/$O.sh
+	../var/$O.sh
 	echo "done"
 	mv -fv $O.out $O.err ../../VecNrmP/var
 done
