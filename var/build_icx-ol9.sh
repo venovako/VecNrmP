@@ -2,7 +2,7 @@
 # !!! has to be run from this directory on Oracle Linux 9 with the static glibc added manually !!!
 if [ -z "${TGT}" ]
 then
-	echo "TGT=target_architecture [GNU=gfortran_suffix] ./build_icx-ol9.sh"
+	echo "TGT=target_architecture ./build_icx-ol9.sh"
 else
 	if [ "${TGT}" != "Host" ]
 	then
@@ -13,12 +13,7 @@ else
 		scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=ev2,jv2,sv2,nrm GMP=/opt/gmp MPFR=/opt/mpfr LAPACK=../../lapack STATIC=-s clean all"
 		cp -fv ../../dist/libpvn.* .
 		cd ../../VecNrmP/src
-		if [ -z "${GNU}" ]
-		then
-			scl enable gcc-toolset-14 "make MARCH=${TGT} clean all"
-		else
-			scl enable gcc-toolset-14 "make MARCH=${TGT} GNU=${GNU} clean all"
-		fi
+		scl enable gcc-toolset-14 "make MARCH=${TGT} clean all"
 		cp -fv *.exe ../../dist
 		cd ../..
 		rm -fv dist.tar.xz
