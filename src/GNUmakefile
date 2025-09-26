@@ -12,16 +12,18 @@ else # !aarch64
 ARCH=$(MACHINE)
 endif # ?aarch64
 endif # ?amd64
-ifneq ($(ARCH),x86_64)
-$(error non-x86_64 architectures not supported for now)
-endif # !x86_64
 RM=rm -rfv
 ifndef LIBPVN
 LIBPVN=../../libpvn
 endif # !LIBPVN
-
 CC=$(shell $(LIBPVN)/src/pvn.exe -C)
-CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i) $(shell $(LIBPVN)/src/pvn.exe -c)
+ifdef MARCH
+CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i)
+ifdef MARCH
+CFLAGS += $(subst -xHost,-x$(MARCH),$(shell $(LIBPVN)/src/pvn.exe -c))
+else # !MARCH
+CFLAGS += $(shell $(LIBPVN)/src/pvn.exe -c)
+endif # ?MARCH
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -l)
 
@@ -39,7 +41,7 @@ all: $(EXES)
 	@echo "BUILT: $(EXES)"
 
 help:
-	@echo $(MAKE) "[all|clean|help]"
+	@echo $(MAKE) "[CC=icx => MARCH=...] [GNU=...] [all|clean|help]"
 
 %.exe : %.c
 	$(CC) $(CPPFLAGS) $(CLFLAGS) $< -o $@ $(LDFLAGS)
