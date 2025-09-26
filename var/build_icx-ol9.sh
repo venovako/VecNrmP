@@ -8,7 +8,6 @@ then
 	mv -fv libpvn.* pvn*.exe ../etc/gen_cbar.exe ../../dist
 	scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=ev2,jv2,sv2,nrm GMP=/opt/gmp MPFR=/opt/mpfr LAPACK=../../lapack STATIC=-s clean all"
 	cp -fv ../../dist/libpvn.* .
-	cp -fv ../../dist/pvn_*.exe .
 	cd ../../VecNrmP/src
 	if [ -z "${GNU}" ]
 	then
@@ -16,6 +15,12 @@ then
 	else
 		scl enable gcc-toolset-14 "make MARCH=${MARCH} GNU=${GNU} clean all"
 	fi
+	cp -fv *.exe ../../dist
+	cd ../..
+	rm -fv dist.tar.xz
+	tar cvf dist.tar dist
+	xz -zv9e dist.tar
+	cd VecNrmP/var
 else
-	echo "Please build in the usual way."
+	echo "Please build the usual way."
 fi
