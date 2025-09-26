@@ -17,7 +17,6 @@ ifndef LIBPVN
 LIBPVN=../../libpvn
 endif # !LIBPVN
 CC=$(shell $(LIBPVN)/src/pvn.exe -C)
-ifdef MARCH
 CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i)
 ifdef MARCH
 CFLAGS += $(subst -xHost,-x$(MARCH),$(shell $(LIBPVN)/src/pvn.exe -c))
