@@ -1,6 +1,6 @@
 #!/bin/bash
+source ./env.sh
 cd ../../libpvn/src
-source ../var/pvn_nrm-env.sh
 CILK_NWORKERS=$1 ./pvn_nrm.exe 1073741824  84225929407270 1.33775031958362306e+04 >  par1-$1.out 2>  par1-$1.err
 CILK_NWORKERS=$1 ./pvn_nrm.exe 1073741824 133283450964053 1.33774124342671785e+04 >  par2-$1.out 2>  par2-$1.err
 CILK_NWORKERS=$1 ./pvn_nrm.exe 1073741824  17688476434090 1.33775691645847346e+04 >  par3-$1.out 2>  par3-$1.err

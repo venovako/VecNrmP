@@ -1,6 +1,6 @@
 #!/bin/bash
+source ./env.sh
 cd ../../libpvn/src
-source ../var/pvn_nrm-env.sh
 for O in nd ns ud us
 do
 	echo -n "Running $O.sh ... "
