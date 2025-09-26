@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
     (void)printf((idist < 0) ? "pvn_snrmp[C]=" : "pvn_dnrmp[C]=");
 #else /* !PVN_CILK */
 #ifdef _OPENMP
-    (void)printf((idist < 0) ? "pvn_snrmp[M]=" : "pvn_dnrmp[M]=");
+    (void)printf((idist < 0) ? "pvn_snrmp[P]=" : "pvn_dnrmp[P]=");
 #else /* !_OPENMP */
     (void)printf((idist < 0) ? "pvn_snrmp[S]=" : "pvn_dnrmp[S]=");
 #endif /* ?_OPENMP */
