@@ -16,6 +16,6 @@ There are several testers available:
 - `src/rhh_relerr.exe`, combined with the script `var/rh_relerr.sh`, computes relative error bounds for the Algorithm H,
 - `var/seq.sh` runs the sequential 2-norm tests with the libpvn's `src/pvn_nrm.exe`,
 - `var/par.sh` runs the OpenCilk-parallel 2-norm tests with the libpvn's `src/pvn_nrm.exe`, and
-- `src/nrmp.exe` runs the p-norm tests.
+- `src/nrmp.exe`, combined with the script `var/seqp.sh`, runs the p-norm tests.
 
 This work has been supported in part by Croatian Science Foundation under the project IP-2014-09-3670 ([MFBDA](https://web.math.pmf.unizg.hr/mfbda/)).
