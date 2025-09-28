@@ -151,6 +151,10 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
   return big;
 }
 
+#ifndef PVN_LAPACK
+#include "../var/crxq.c"
+#endif /* !PVN_LAPACK */
+
 static double frelerr(const double e, const double f)
 {
   return ((e == 0.0) ? -0.0 : (__builtin_fabs(e - f) / scalbn(__builtin_fabs(e), -24)));
