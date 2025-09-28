@@ -1,11 +1,12 @@
 #!/bin/bash
 source ./env.sh
-cd ../../libpvn/src
+cd ../src
 for O in nd ns ud us
 do
 	echo -n "Running ${O}.sh ... "
-	../../VecNrmP/var/${O}.sh
+	../var/${O}.sh
 	echo "done"
-	mv -fv ${O}*.out ${O}*.err ../../VecNrmP/var
+	mv -fv ${O}*.out ${O}*.err ../var
 done
+cd ../var
 unset O

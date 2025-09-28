@@ -5,10 +5,10 @@ then
 	echo "GNU=suffix ./build_gcc-mac.sh"
 else
 	cd ../../libpvn/src
-	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=ev2,jv2,sv2,nrm GMP=/opt/gmp MPFR=/opt/mpfr LAPACK=${HOME}/lapack clean
-	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=ev2,jv2,sv2,nrm GMP=/opt/gmp MPFR=/opt/mpfr LAPACK=${HOME}/lapack -j all
+	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=ev2,jv2,sv2,nrm GMP=/opt/gmp MPFR=/opt/mpfr clean
+	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=ev2,jv2,sv2,nrm GMP=/opt/gmp MPFR=/opt/mpfr -j all
 	cd ../../VecNrmP/src
-	make GNU=${GNU} clean
-	make GNU=${GNU} -j all
+	make LAPACK=${HOME}/lapack GNU=${GNU} clean
+	make LAPACK=${HOME}/lapack GNU=${GNU} -j all
 	cd ../var
 fi

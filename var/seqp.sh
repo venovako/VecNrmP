@@ -8,4 +8,5 @@ do
 	echo "done"
 	mv -fv ${O}*.out ${O}*.err ../var
 done
+cd ../var
 unset O

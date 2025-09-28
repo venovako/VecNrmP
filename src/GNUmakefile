@@ -17,16 +17,17 @@ ifndef LIBPVN
 LIBPVN=../../libpvn
 endif # !LIBPVN
 CC=$(shell $(LIBPVN)/src/pvn.exe -C)
-CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i)
+CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i) -DPVN_LAPACK=1
 ifdef MARCH
 CFLAGS += $(subst -xHost,-x$(MARCH),$(shell $(LIBPVN)/src/pvn.exe -c))
 else # !MARCH
 CFLAGS += $(shell $(LIBPVN)/src/pvn.exe -c)
 endif # ?MARCH
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
-LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -L) $(shell $(LIBPVN)/src/pvn.exe -l)
+LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -L) -L$(LAPACK) -ltmglib -llapack -lrefblas $(shell $(LIBPVN)/src/pvn.exe -l)
 
 SRCS=dmc.c   \
+nrm2.c       \
 nrmp.c       \
 crh_relerr.c \
 laf_relerr.c \
@@ -40,7 +41,7 @@ all: $(EXES)
 	@echo "BUILT: $(EXES)"
 
 help:
-	@echo $(MAKE) "[CC=icx => MARCH=...] [GNU=...] [all|clean|help]"
+	@echo $(MAKE) "LAPACK=... [CC=icx => MARCH=...] [GNU=...] [all|clean|help]"
 
 %.exe : %.c
 	$(CC) $(CPPFLAGS) $(CLFLAGS) $< -o $@ $(LDFLAGS)
