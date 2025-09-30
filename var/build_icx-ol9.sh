@@ -18,8 +18,7 @@ else
 		mkdir -pv ../../dist/VecNrmP
 		cp -fv *.exe ../../dist/VecNrmP
 		cd ../..
-		rm -fv dist.tar
-		rm -fv dist.tar.xz
+		rm -fv dist.tar*
 		tar cvf dist.tar dist
 		xz -zv9e dist.tar
 		cd VecNrmP/var
