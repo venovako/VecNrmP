@@ -17,11 +17,11 @@ ifndef LIBPVN
 LIBPVN=../../libpvn
 endif # !LIBPVN
 CC=$(shell $(LIBPVN)/src/pvn.exe -C)
-CFLAGS=$(shell $(LIBPVN)/src/pvn.exe -i) -DPVN_LAPACK=1
+CFLAGS=-DPVN_LAPACK=1
 ifdef MARCH
-CFLAGS += $(subst -xHost,-x$(MARCH),$(shell $(LIBPVN)/src/pvn.exe -c))
+CFLAGS += $(subst VECLEN=32,VECLEN=64,$(shell $(LIBPVN)/src/pvn.exe -i)) $(subst -xHost,-x$(MARCH),$(shell $(LIBPVN)/src/pvn.exe -c))
 else # !MARCH
-CFLAGS += $(shell $(LIBPVN)/src/pvn.exe -c)
+CFLAGS += $(shell $(LIBPVN)/src/pvn.exe -i) $(shell $(LIBPVN)/src/pvn.exe -c)
 endif # ?MARCH
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -L) -L$(LAPACK) -ltmglib -llapack -lrefblas $(shell $(LIBPVN)/src/pvn.exe -l)
@@ -43,10 +43,10 @@ all: $(EXES)
 help:
 	@echo $(MAKE) "LAPACK=... [CC=icx => MARCH=...] [GNU=...] [all|clean|help]"
 
-%.exe : %.c
+%.exe : %.c GNUmakefile
 	$(CC) $(CPPFLAGS) $(CLFLAGS) $< -o $@ $(LDFLAGS)
 
-Blue.exe: Blue.f90
+Blue.exe: Blue.f90 GNUmakefile
 	gfortran$(GNU) -cpp -o $@ Blue.f90
 
 clean:

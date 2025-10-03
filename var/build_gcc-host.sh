@@ -5,7 +5,7 @@ then
 	echo "GNU=suffix ./build_gcc-host.sh"
 else
 	cd ../../libpvn/src
-	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=SV2,NRM GMP=$HOME/gnu MPFR=$HOME/gnu clean all
+	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=$HOME/gnu MPFR=$HOME/gnu clean all
 	cd ../../VecNrmP/src
 	make LAPACK=${HOME}/lapack GNU=${GNU} clean all
 	cd ../var

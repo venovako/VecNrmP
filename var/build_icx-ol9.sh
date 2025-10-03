@@ -7,11 +7,11 @@ else
 	if [ "${TGT}" != "Host" ]
 	then
 		cd ../../libpvn/src
-		scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=SV2,NRM GMP=/opt/gmp MPFR=/opt/mpfr MARCH=${TGT} STATIC=-s clean all"
+		scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr MARCH=${TGT} STATIC=-s clean all"
 		rm -frv ../../dist
 		mkdir -pv ../../dist/libpvn
 		mv -fv libpvn.* pvn*.exe ../etc/gen_cbar.exe ../../dist/libpvn
-		scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=SV2,NRM GMP=/opt/gmp MPFR=/opt/mpfr STATIC=-s clean all"
+		scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=SV2,NRM VECLEN=32 GMP=/opt/gmp MPFR=/opt/mpfr STATIC=-s clean all"
 		cp -fv ../../dist/libpvn/libpvn.* .
 		cd ../../VecNrmP/src
 		scl enable gcc-toolset-14 "make LAPACK=../../lapack MARCH=${TGT} clean all"
