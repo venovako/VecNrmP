@@ -24,7 +24,7 @@ else # !MARCH
 CFLAGS += $(shell $(LIBPVN)/src/pvn.exe -i) $(shell $(LIBPVN)/src/pvn.exe -c)
 endif # ?MARCH
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
-LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -L) -L$(LAPACK) -ltmglib -llapack -lrefblas $(shell $(LIBPVN)/src/pvn.exe -l)
+LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -L) -L$(LAPACK) -ltmglib -lrefblas $(shell $(LIBPVN)/src/pvn.exe -l)
 
 SRCS=dmc.c   \
 nrm2.c       \
