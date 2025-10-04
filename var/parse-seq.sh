@@ -1,11 +1,11 @@
 #!/bin/bash
-for O in dn du sn su nd ns ud us
+for O in nd ns ud us #dn du sn su
 do
 	echo -n "Creating $O.csv ... "
 	echo '"RUN", "SEED", "MPV", "MPE", "MPT", "LAV", "LAE", "LAT", "M2V", "M2E", "M2T", "RFV", "RFE", "RFT", "RHV", "RHE", "RHT", "RXV", "RXE", "RXT", "RYV", "RYE", "RYT", "RZV", "RZE", "RZT", "CRV", "CRE", "CRT"' > $O.csv
 	for ((I=1;I<=31;++I))
 	do
-		printf "% 2d, , " $I >> $O.csv
+		printf "% 2d, " $I >> $O.csv
 #		S=`grep SEED $O$I.err | cut -d'=' -f2 | tr -d ' '`
 #		echo -n "$S" >> $O.csv
 		for F in mp la m2 rf rh rx ry rz cr
