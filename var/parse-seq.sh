@@ -20,4 +20,4 @@ do
 	done
 	echo "done"
 done
-unset T E V L F S I O
+unset T E V L F I O #S
