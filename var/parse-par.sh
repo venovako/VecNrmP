@@ -2,7 +2,7 @@
 echo '"RUN", "T1", "T2", "T4", "T8", "T16", "T32", "T64"' > par.csv
 for ((I=1;I<=31;++I))
 do
-	echo -n "$I" >> par.csv
+	printf "% 2d" $I >> par.csv
 	for ((W=1;W<=64;W*=2))
 	do
 		L=`grep rz par$I-$W.out | tr -s ' '`

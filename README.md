@@ -3,7 +3,7 @@ recursive computation of the vector p-norm
 
 (... work in progress ...)
 
-This software is a supplementary material for the papers:
+This software is a supplementary material for the paper:
 - doi:[10.48550/arXiv.2509.06220](https://doi.org/10.48550/arXiv.2509.06220 "Recursive vectorized computation of the Frobenius norm").
 
 For building [libpvn](https://github.com/venovako/libpvn) and this repository please invoke `make help` from the `src` subdirectory and see the examples in `var/build_*.sh` scripts.
