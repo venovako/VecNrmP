@@ -1,7 +1,7 @@
 #!/bin/bash
 source ./env.sh
 cd ../src
-for O in nd ns ud us
+for O in dn du sn su
 do
 	echo -n "Running ${O}.sh ... "
 	../var/${O}.sh
