@@ -20,7 +20,7 @@ else
 		cd ../..
 		rm -fv dist.tar*
 		tar cvf dist.tar dist
-		xz -zv9e dist.tar
+		zstd --single-thread --rm --ultra -22 dist.tar
 		cd VecNrmP/var
 	else
 		echo "Please build the usual way."
