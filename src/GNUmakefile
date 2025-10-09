@@ -14,7 +14,7 @@ endif # ?aarch64
 endif # ?amd64
 RM=rm -rfv
 ifndef LIBPVN
-LIBPVN=../../libpvn
+LIBPVN=$(realpath ../../libpvn)
 endif # !LIBPVN
 CC=$(shell $(LIBPVN)/src/pvn.exe -C)
 CFLAGS=-DPVN_LAPACK=1
