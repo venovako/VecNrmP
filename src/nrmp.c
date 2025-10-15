@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
     double f = ((idist < 0) ? PVN_FABI(pvn_snrmp,PVN_SNRMP)(&pf, &n, (const float*)x) : PVN_FABI(pvn_dnrmp,PVN_DNRMP)(&p, &n, (const double*)x));
     t = pvn_time_mono_ns() - t;
     (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
-#if (defined(PVN_USE_INTEL) && (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER)))
+#if (defined(PVN_SLEEF) || (defined(PVN_USE_INTEL) && (defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER))))
     (void)printf((idist < 0) ? "pvn_rxs_nrmp=" : "pvn_rxd_nrmp=");
     (void)fflush(stdout);
     t = pvn_time_mono_ns();
@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
     t = pvn_time_mono_ns() - t;
     (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
 #endif /* __AVX512F__ */
-#endif /* Intel */
+#endif /* Sleef || Intel */
   }
   (void)PVN_FABI(pvn_mpfr_stop,PVN_MPFR_STOP)();
   free(x);
