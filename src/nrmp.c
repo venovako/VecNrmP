@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
     const double p = atof(argv[a + 3]);
     if (!(p > 0.0))
       return 11;
-    (void)printf("p=%# .17e\n", p);
+    (void)printf("p%d=%# .17e\n", (a + 1), p);
     (void)printf((idist < 0) ? "pvn_mps_nrmp=" : "pvn_mpd_nrmp=");
     (void)fflush(stdout);
     const float pf = (float)p;
@@ -164,6 +164,7 @@ int main(int argc, char *argv[])
     f = ((idist < 0) ? PVN_FABI(pvn_rzs_nrmp,PVN_RZS_NRMP)(&pf, &n, (const float*)x) : PVN_FABI(pvn_rzd_nrmp,PVN_RZD_NRMP)(&p, &n, (const double*)x));
     t = pvn_time_mono_ns() - t;
     (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
+    (void)fflush(stdout);
 #endif /* __AVX512F__ */
 #endif /* Sleef || Intel */
   }
