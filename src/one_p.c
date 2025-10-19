@@ -60,7 +60,7 @@ static void x()
     long double y = powl(one_, m);
     if (y == one_)
       p_ = m;
-    else /* y == 1.0 */
+    else /* y == 1.0L */
       _p = m;
     if (_p >= p_) {
       if (_p > p_) {
