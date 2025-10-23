@@ -30,6 +30,7 @@ SRCS=dmc.c   \
 nrm2.c       \
 nrmp.c       \
 one_p.c      \
+two_p.c      \
 crh_relerr.c \
 laf_relerr.c \
 reh_relerr.c \
