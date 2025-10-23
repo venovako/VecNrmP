@@ -1,0 +1,27 @@
+! Algorithm H, quadruple precision.
+PURE RECURSIVE FUNCTION QNRMF(M, X) RESULT(F)
+  USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY: REAL128
+  IMPLICIT NONE
+  INTEGER, PARAMETER :: K = REAL128
+  REAL(KIND=K), PARAMETER :: ZERO = 0.0_K, MZERO = -0.0_K
+  INTEGER, INTENT(IN) :: M
+  REAL(KIND=K), INTENT(IN) :: X(M)
+  REAL(KIND=K) :: F, L, R
+  INTEGER :: I
+  IF (M .LT. 0) THEN
+     F = MZERO
+  ELSE IF (M .EQ. 0) THEN
+     F = ZERO
+  ELSE IF (M .EQ. 1) THEN
+     F = ABS(X(1))
+  ELSE IF (M .EQ. 2) THEN
+     L = X(1)
+     R = X(2)
+     F = HYPOT(L, R)
+  ELSE ! M > 2
+     I = ISHFT(M, -1) + IAND(M, 1)
+     L = QNRMF(I, X)
+     R = QNRMF(M-I, X(I+1))
+     F = HYPOT(L, R)
+  END IF
+END FUNCTION QNRMF

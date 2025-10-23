@@ -47,8 +47,8 @@ help:
 %.exe : %.c GNUmakefile
 	$(CC) $(CPPFLAGS) $(CLFLAGS) $< -o $@ $(LDFLAGS)
 
-Blue.exe: Blue.f90 GNUmakefile
-	gfortran$(GNU) -cpp -o $@ Blue.f90
+Blue.exe: Blue.F90 GNUmakefile
+	gfortran$(GNU) -o $@ Blue.F90
 
 clean:
 	-$(RM) *.exe
