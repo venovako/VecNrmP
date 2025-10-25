@@ -8,36 +8,6 @@ extern float PVN_FABI(slaran,SLARAN)(int *const iseed);
 extern float PVN_FABI(slarnd,SLARND)(const int *const idist, int *const iseed);
 extern double PVN_FABI(dlaran,DLARAN)(int *const iseed);
 extern double PVN_FABI(dlarnd,DLARND)(const int *const idist, int *const iseed);
-static float snrmi(const float *const p, const size_t *const n, const float *const x)
-{
-  if (!p || !(*p > 0.0f) || isfinite(*p))
-    return -1.0f;
-  if (!n)
-    return -2.0f;
-  if (!*n)
-    return -0.0f;
-  if (!x)
-    return -3.0f;
-  float f = 0.0f;
-  for (size_t i = (size_t)0u; i < *n; ++i)
-    f = __builtin_fmaxf(f, __builtin_fabsf(x[i]));
-  return f;
-}
-static double dnrmi(const double *const p, const size_t *const n, const double *const x)
-{
-  if (!p || !(*p > 0.0) || isfinite(*p))
-    return -1.0;
-  if (!n)
-    return -2.0;
-  if (!*n)
-    return -0.0;
-  if (!x)
-    return -3.0;
-  double f = 0.0;
-  for (size_t i = (size_t)0u; i < *n; ++i)
-    f = __builtin_fmax(f, __builtin_fabs(x[i]));
-  return f;
-}
 static double frelerr(const double e, const double f)
 {
   return ((e == 0.0) ? -0.0 : (__builtin_fabs(e - f) / scalbn(__builtin_fabs(e), -24)));
@@ -127,7 +97,7 @@ int main(int argc, char *argv[])
     (void)fflush(stdout);
     const float pf = (float)p;
     t = pvn_time_mono_ns();
-    const double e = ((idist < 0) ? (isfinite(pf) ? PVN_FABI(pvn_mps_nrmp,PVN_MPS_NRMP) : snrmi)(&pf, &n, (const float*)x) : (isfinite(p) ? PVN_FABI(pvn_mpd_nrmp,PVN_MPD_NRMP) : dnrmi)(&p, &n, (const double*)x));
+    const double e = ((idist < 0) ? PVN_FABI(pvn_mps_nrmp,PVN_MPS_NRMP)(&pf, &n, (const float*)x) : PVN_FABI(pvn_mpd_nrmp,PVN_MPD_NRMP)(&p, &n, (const double*)x));
     t = pvn_time_mono_ns() - t;
     (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", e, 0.0, t);
 #ifdef PVN_CILK
