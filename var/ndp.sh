@@ -1,32 +1,32 @@
 #!/bin/bash
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  25944849203584 >  ndp1.out 2>  ndp1.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 153077598009512 >  ndp2.out 2>  ndp2.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  39162661063339 >  ndp3.out 2>  ndp3.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 193905104641114 >  ndp4.out 2>  ndp4.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 125289815541128 >  ndp5.out 2>  ndp5.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 271689591534628 >  ndp6.out 2>  ndp6.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 149243941829742 >  ndp7.out 2>  ndp7.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 153477789009873 >  ndp8.out 2>  ndp8.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 102464862945811 >  ndp9.out 2>  ndp9.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 264156136387528 > ndp10.out 2> ndp10.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  48209008984770 > ndp11.out 2> ndp11.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf    926644888384 > ndp12.out 2> ndp12.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 269742808093568 > ndp13.out 2> ndp13.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 133140834589919 > ndp14.out 2> ndp14.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf    948814433127 > ndp15.out 2> ndp15.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 257418450071907 > ndp16.out 2> ndp16.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 210415706860389 > ndp17.out 2> ndp17.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 188935437690893 > ndp18.out 2> ndp18.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 217646148643322 > ndp19.out 2> ndp19.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 199941492037421 > ndp20.out 2> ndp20.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 225480702134323 > ndp21.out 2> ndp21.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  70194609683243 > ndp22.out 2> ndp22.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 260015387711235 > ndp23.out 2> ndp23.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 232646152833469 > ndp24.out 2> ndp24.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 217361901530733 > ndp25.out 2> ndp25.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 164044943949429 > ndp26.out 2> ndp26.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 189221027838123 > ndp27.out 2> ndp27.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 127895705221835 > ndp28.out 2> ndp28.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  46173357579968 > ndp29.out 2> ndp29.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 147595130650356 > ndp30.out 2> ndp30.err
-./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  27472802710492 > ndp31.out 2> ndp31.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  25944849203584 >  ndp1.out 2>  ndp1.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 153077598009512 >  ndp2.out 2>  ndp2.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  39162661063339 >  ndp3.out 2>  ndp3.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 193905104641114 >  ndp4.out 2>  ndp4.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 125289815541128 >  ndp5.out 2>  ndp5.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 271689591534628 >  ndp6.out 2>  ndp6.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 149243941829742 >  ndp7.out 2>  ndp7.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 153477789009873 >  ndp8.out 2>  ndp8.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 102464862945811 >  ndp9.out 2>  ndp9.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 264156136387528 > ndp10.out 2> ndp10.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  48209008984770 > ndp11.out 2> ndp11.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf    926644888384 > ndp12.out 2> ndp12.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 269742808093568 > ndp13.out 2> ndp13.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 133140834589919 > ndp14.out 2> ndp14.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf    948814433127 > ndp15.out 2> ndp15.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 257418450071907 > ndp16.out 2> ndp16.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 210415706860389 > ndp17.out 2> ndp17.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 188935437690893 > ndp18.out 2> ndp18.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 217646148643322 > ndp19.out 2> ndp19.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 199941492037421 > ndp20.out 2> ndp20.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 225480702134323 > ndp21.out 2> ndp21.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  70194609683243 > ndp22.out 2> ndp22.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 260015387711235 > ndp23.out 2> ndp23.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 232646152833469 > ndp24.out 2> ndp24.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 217361901530733 > ndp25.out 2> ndp25.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 164044943949429 > ndp26.out 2> ndp26.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 189221027838123 > ndp27.out 2> ndp27.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 127895705221835 > ndp28.out 2> ndp28.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  46173357579968 > ndp29.out 2> ndp29.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 147595130650356 > ndp30.out 2> ndp30.err
+CILK_NWORKERS=$1 ./nrmp.exe -536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  27472802710492 > ndp31.out 2> ndp31.err
