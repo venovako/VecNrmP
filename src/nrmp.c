@@ -3,7 +3,7 @@
 #if !(defined(PVN_LAPACK) && defined(PVN_MPFR) && defined(__AVX__) && defined(__FMA__))
 #error PVN_LAPACK and PVN_MPFR and __AVX__ and __FMA__ have to be defined
 #endif /* !PVN_LAPACK || !PVN_MPFR || !__AVX__ || !__FMA__ */
-/* this assumes the Fortran integers are four-byte long, but only for this tester */
+/* this assumes the Fortran integers are four-byte long */
 extern float PVN_FABI(slaran,SLARAN)(int *const iseed);
 extern float PVN_FABI(slarnd,SLARND)(const int *const idist, int *const iseed);
 extern double PVN_FABI(dlaran,DLARAN)(int *const iseed);

@@ -1,6 +1,6 @@
 #include "pvn.h"
 
-/* this assumes the Fortran integers are four-byte long, but only for this tester */
+/* this assumes the Fortran integers are four-byte long */
 extern float PVN_FABI(slaran,SLARAN)(int *const iseed);
 extern float PVN_FABI(slarnd,SLARND)(const int *const idist, int *const iseed);
 extern double PVN_FABI(dlaran,DLARAN)(int *const iseed);
