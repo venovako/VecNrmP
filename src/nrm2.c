@@ -234,7 +234,6 @@ int main(int argc, char *argv[])
     *(float*)&p = 2.0f;
   else /* double */
     p = 2.0;
-#ifndef PVN_CILK
 #ifdef PVN_MPFR
   if (argc <= 3) {
     mpfr_rnd_t rnd = MPFR_RNDN;
@@ -250,6 +249,9 @@ int main(int argc, char *argv[])
     (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", e, 0.0, t);
   }
 #endif /* PVN_MPFR */
+#ifdef PVN_CILK
+  (void)printf((idist < 0) ? "pvn_snrm2[p]=" : "pvn_dnrm2[p]=");
+#else /* !PVN_CILK */
   (void)printf((idist < 0) ? "pvn_las_nrmf=" : "pvn_lad_nrmf=");
   (void)fflush(stdout);
   t = pvn_time_mono_ns();
@@ -257,8 +259,6 @@ int main(int argc, char *argv[])
   t = pvn_time_mono_ns() - t;
   (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
   (void)printf((idist < 0) ? "pvn_snrm2[s]=" : "pvn_dnrm2[s]=");
-#else /* PVN_CILK */
-  (void)printf((idist < 0) ? "pvn_snrm2[p]=" : "pvn_dnrm2[p]=");
 #endif /* ?PVN_CILK */
   (void)fflush(stdout);
   t = pvn_time_mono_ns();
@@ -312,11 +312,12 @@ int main(int argc, char *argv[])
   f = ((idist < 0) ? PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(&n, (const float*)x) : PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(&n, (const double*)x));
   t = pvn_time_mono_ns() - t;
   (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
+#endif /* !PVN_CILK */
+  (void)fflush(stdout);
 #ifdef PVN_MPFR
   if (argc <= 3)
     (void)PVN_FABI(pvn_mpfr_stop,PVN_MPFR_STOP)();
 #endif /* PVN_MPFR */
-#endif /* !PVN_CILK */
   free(x);
   return 0;
 }
