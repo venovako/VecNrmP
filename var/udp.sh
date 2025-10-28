@@ -29,4 +29,4 @@ CILK_NWORKERS=$1 ./nrmp.exe 536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `.
 CILK_NWORKERS=$1 ./nrmp.exe 536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  77925623070312 > udp28.out 2> udp28.err
 CILK_NWORKERS=$1 ./nrmp.exe 536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf  78828782895247 > udp29.out 2> udp29.err
 CILK_NWORKERS=$1 ./nrmp.exe 536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 178392018673735 > udp30.out 2> udp30.err
-CILK_NWORKERS=$1 ./nrmp.exe 536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 228502501109146 > udp31.out 2> ud31.err
+CILK_NWORKERS=$1 ./nrmp.exe 536870912 5 1 `./dmc.exe M_SQRT2` `./dmc.exe M_E` `./dmc.exe M_PI` inf 228502501109146 > udp31.out 2> udp31.err
