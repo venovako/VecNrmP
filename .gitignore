@@ -58,3 +58,4 @@ dkms.conf
 *.err
 *.log
 *.optrpt
+tmp

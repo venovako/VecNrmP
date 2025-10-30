@@ -29,6 +29,7 @@ LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -L) -L$(LAPACK) -ltmglib -lrefblas $(shell
 SRCS=dmc.c   \
 nrm2.c       \
 nrmp.c       \
+parse_p.c    \
 one_p.c      \
 two_p.c      \
 crh_relerr.c \
