@@ -103,11 +103,11 @@ int main(int argc, char *argv[])
 #ifdef PVN_CILK
     (void)printf((idist < 0) ? "pvn_snrmp[C]=" : "pvn_dnrmp[C]=");
 #else /* !PVN_CILK */
-#ifdef _OPENMP
+#if (defined(PVN_OPENMP) && (PVN_OPENMP > 1))
     (void)printf((idist < 0) ? "pvn_snrmp[P]=" : "pvn_dnrmp[P]=");
-#else /* !_OPENMP */
+#else /* !PVN_OPENMP */
     (void)printf((idist < 0) ? "pvn_snrmp[S]=" : "pvn_dnrmp[S]=");
-#endif /* ?_OPENMP */
+#endif /* ?PVN_OPENMP */
 #endif /* ?PVN_CILK */
     (void)fflush(stdout);
     t = pvn_time_mono_ns();

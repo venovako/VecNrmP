@@ -35,9 +35,9 @@ static double PVN_FABI(pvn_lad_nrmf,PVN_LAD_NRMF)(const size_t *const n, const d
 
 static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const float *const x)
 {
-#ifdef _OPENMP
+#if (defined(PVN_OPENMP) && (PVN_OPENMP > 1))
 #pragma omp declare reduction(hcf:float:omp_out=hypotf(omp_out,omp_in)) initializer(omp_priv=0.0f)
-#endif /* _OPENMP */
+#endif /* PVN_OPENMP */
   if (!n)
     return -1.0f;
   if (!*n)
@@ -57,13 +57,13 @@ static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const fl
   /* the accumulator for subnormal inputs */
   float dnr = 0.0f;
 #endif /* !PVN_LAPACK */
-#ifdef _OPENMP
+#if (defined(PVN_OPENMP) && (PVN_OPENMP > 1))
 #ifdef PVN_LAPACK
 #pragma omp parallel for default(none) shared(m,x,tsml,tbig) reduction(hcf:sml,med,big)
 #else /* !PVN_LAPACK */
 #pragma omp parallel for default(none) shared(m,x,tsml,tbig) reduction(hcf:dnr,sml,med,big)
 #endif /* ?PVN_LAPACK */
-#endif /* _OPENMP */
+#endif /* PVN_OPENMP */
   for (size_t i = 0u; i < m; ++i) {
     const float y = __builtin_fabsf(x[i]);
     if (y > 0.0f) {
@@ -94,9 +94,9 @@ static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const fl
 
 static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const double *const x)
 {
-#ifdef _OPENMP
+#if (defined(PVN_OPENMP) && (PVN_OPENMP > 1))
 #pragma omp declare reduction(hcd:double:omp_out=hypot(omp_out,omp_in)) initializer(omp_priv=0.0)
-#endif /* _OPENMP */
+#endif /* PVN_OPENMP */
   if (!n)
     return -1.0;
   if (!*n)
@@ -116,13 +116,13 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
   /* the accumulator for subnormal inputs */
   double dnr = 0.0;
 #endif /* !PVN_LAPACK */
-#ifdef _OPENMP
+#if (defined(PVN_OPENMP) && (PVN_OPENMP > 1))
 #ifdef PVN_LAPACK
 #pragma omp parallel for default(none) shared(m,x,tsml,tbig) reduction(hcd:sml,med,big)
 #else /* !PVN_LAPACK */
 #pragma omp parallel for default(none) shared(m,x,tsml,tbig) reduction(hcd:dnr,sml,med,big)
 #endif /* ?PVN_LAPACK */
-#endif /* _OPENMP */
+#endif /* PVN_OPENMP */
   for (size_t i = 0u; i < m; ++i) {
     const double y = __builtin_fabs(x[i]);
     if (y > 0.0) {
