@@ -8,7 +8,7 @@ else
 	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=SV2,NRM VECLEN=32 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef clean
 	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=SV2,NRM VECLEN=32 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef -j all
 	cd ../../VecNrmP/src
-	make LAPACK=${HOME}/lapack GNU=${GNU} clean
-	make LAPACK=${HOME}/lapack GNU=${GNU} -j all
+	make LAPACK=${HOME}/lapack clean
+	make LAPACK=${HOME}/lapack -j all
 	cd ../var
 fi
