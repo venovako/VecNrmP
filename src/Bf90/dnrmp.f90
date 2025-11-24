@@ -1,4 +1,4 @@
-! Algorithm Hp, double precision.
+! Algorithm Bp, double precision.
 PURE RECURSIVE FUNCTION DNRMP(P, M, X) RESULT(F)
   USE, INTRINSIC :: IEEE_ARITHMETIC, ONLY: IEEE_FMA
   USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY: REAL64

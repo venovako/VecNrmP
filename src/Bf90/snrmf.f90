@@ -1,4 +1,4 @@
-! Algorithm H, single precision.
+! Algorithm B, single precision.
 PURE RECURSIVE FUNCTION SNRMF(M, X) RESULT(F)
   USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY: REAL32
   IMPLICIT NONE

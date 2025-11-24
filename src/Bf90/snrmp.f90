@@ -1,4 +1,4 @@
-! Algorithm Hp, single precision.
+! Algorithm Bp, single precision.
 PURE RECURSIVE FUNCTION SNRMP(P, M, X) RESULT(F)
   USE, INTRINSIC :: IEEE_ARITHMETIC, ONLY: IEEE_FMA
   USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY: REAL32

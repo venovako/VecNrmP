@@ -41,10 +41,10 @@ crh_relerr.c \
 laf_relerr.c \
 reh_relerr.c \
 rhh_relerr.c
-FSSRCS=Hf90/snrm1.f90 Hf90/snrmf.f90 Hf90/snrmI.f90 Hf90/snrmp.f90
-FDSRCS=Hf90/dnrm1.f90 Hf90/dnrmf.f90 Hf90/dnrmI.f90 Hf90/dnrmp.f90
-FQSRCS=Hf90/qnrm1.f90 Hf90/qnrmf.f90 Hf90/qnrmI.f90
-FXSRCS=Hf90/xnrmI.f90 Hf90/xnrm1.f90 Hf90/xnrmf.f90
+FSSRCS=Bf90/snrm1.f90 Bf90/snrmf.f90 Bf90/snrmI.f90 Bf90/snrmp.f90
+FDSRCS=Bf90/dnrm1.f90 Bf90/dnrmf.f90 Bf90/dnrmI.f90 Bf90/dnrmp.f90
+FQSRCS=Bf90/qnrm1.f90 Bf90/qnrmf.f90 Bf90/qnrmI.f90
+FXSRCS=Bf90/xnrmI.f90 Bf90/xnrm1.f90 Bf90/xnrmf.f90
 ifeq ($(findstring ifx,$(FC)),ifx)
 FSRCS=$(FSSRCS) $(FDSRCS) $(FQSRCS)
 endif # ifx
@@ -71,7 +71,7 @@ help:
 %.exe : %.c GNUmakefile
 	$(CC) $(CLFLAGS) $< -o $@ $(LDFLAGS)
 
-Hf90/%.o : Hf90/%.f90 GNUmakefile
+Bf90/%.o : Bf90/%.f90 GNUmakefile
 	$(FC) $(FCFLAGS) $< -c -o $@
 
 Blue.exe: Blue.F90 GNUmakefile

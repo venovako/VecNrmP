@@ -1,4 +1,4 @@
-! Algorithm Hinf, quadruple precision.
+! Algorithm Binf, quadruple precision.
 PURE RECURSIVE FUNCTION QNRMI(M, X) RESULT(F)
   USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY: REAL128
   IMPLICIT NONE

@@ -1,5 +1,5 @@
-! Algorithm H, extended precision.
-PURE RECURSIVE FUNCTION XNRMF(M, X) RESULT(F)
+! Algorithm B1, extended precision.
+PURE RECURSIVE FUNCTION XNRM1(M, X) RESULT(F)
   IMPLICIT NONE
   INTEGER, PARAMETER :: K = 10
   REAL(KIND=K), PARAMETER :: MONE = -1.0_K, MZERO = -0.0_K
@@ -14,13 +14,13 @@ PURE RECURSIVE FUNCTION XNRMF(M, X) RESULT(F)
   ELSE IF (M .EQ. 1) THEN
      F = ABS(X(1))
   ELSE IF (M .EQ. 2) THEN
-     L = X(1)
-     R = X(2)
-     F = HYPOT(L, R)
+     L = ABS(X(1))
+     R = ABS(X(2))
+     F = L + R
   ELSE ! M > 2
      I = ISHFT(M, -1) + IAND(M, 1)
-     L = XNRMF(I, X)
-     R = XNRMF(M-I, X(I+1))
-     F = HYPOT(L, R)
+     L = XNRM1(I, X)
+     R = XNRM1(M-I, X(I+1))
+     F = L + R
   END IF
-END FUNCTION XNRMF
+END FUNCTION XNRM1

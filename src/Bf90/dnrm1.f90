@@ -1,7 +1,8 @@
-! Algorithm Hinf, extended precision.
-PURE RECURSIVE FUNCTION XNRMI(M, X) RESULT(F)
+! Algorithm B1, double precision.
+PURE RECURSIVE FUNCTION DNRM1(M, X) RESULT(F)
+  USE, INTRINSIC :: ISO_FORTRAN_ENV, ONLY: REAL64
   IMPLICIT NONE
-  INTEGER, PARAMETER :: K = 10
+  INTEGER, PARAMETER :: K = REAL64
   REAL(KIND=K), PARAMETER :: MONE = -1.0_K, MZERO = -0.0_K
   INTEGER, INTENT(IN) :: M
   REAL(KIND=K), INTENT(IN) :: X(M)
@@ -16,11 +17,11 @@ PURE RECURSIVE FUNCTION XNRMI(M, X) RESULT(F)
   ELSE IF (M .EQ. 2) THEN
      L = ABS(X(1))
      R = ABS(X(2))
-     F = MAX(L, R)
+     F = L + R
   ELSE ! M > 2
      I = ISHFT(M, -1) + IAND(M, 1)
-     L = XNRMI(I, X)
-     R = XNRMI(M-I, X(I+1))
-     F = MAX(L, R)
+     L = DNRM1(I, X)
+     R = DNRM1(M-I, X(I+1))
+     F = L + R
   END IF
-END FUNCTION XNRMI
+END FUNCTION DNRM1
