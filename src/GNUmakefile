@@ -13,23 +13,22 @@ ARCH=$(MACHINE)
 endif # ?aarch64
 endif # ?amd64
 RM=rm -rfv
-ifndef LIBPVN
-LIBPVN=$(realpath ../../libpvn)
-endif # !LIBPVN
-CC=$(shell $(LIBPVN)/src/pvn.exe -C)
-FC=$(shell $(LIBPVN)/src/pvn.exe -F)
-CFLAGS=-DPVN_LAPACK=1
-FCFLAGS=$(shell $(LIBPVN)/src/pvn.exe -f)
+include ../../libpvn/src/pvn.mk
+CC=$(PVN_CC)
+FC=$(PVN_FC)
 ifdef MARCH
-CFLAGS += $(subst VECLEN=32,VECLEN=64,$(shell $(LIBPVN)/src/pvn.exe -i)) $(subst -xHost,-x$(MARCH),$(shell $(LIBPVN)/src/pvn.exe -c))
-FCFLAGS += $(subst VECLEN=32,VECLEN=64,$(shell $(LIBPVN)/src/pvn.exe -i)) $(subst -xHost,-x$(MARCH),$(shell $(LIBPVN)/src/pvn.exe -f))
+CPPFLAGS=$(subst VECLEN=32,VECLEN=64,$(PVN_CPPFLAGS))
+CFLAGS=$(CPPFLAGS) $(subst -xHost,-x$(MARCH),$(PVN_CFLAGS))
+FCFLAGS=$(CPPFLAGS) $(subst -xHost,-x$(MARCH),$(PVN_FCFLAGS))
 else # !MARCH
-CFLAGS += $(shell $(LIBPVN)/src/pvn.exe -i) $(shell $(LIBPVN)/src/pvn.exe -c)
-FCFLAGS += $(shell $(LIBPVN)/src/pvn.exe -i) $(shell $(LIBPVN)/src/pvn.exe -f)
+CPPFLAGS=$(PVN_CPPFLAGS)
+CFLAGS=$(CPPFLAGS) $(PVN_CFLAGS)
+FCFLAGS=$(CPPFLAGS) $(PVN_FCFLAGS)
 endif # ?MARCH
+CFLAGS += -DPVN_LAPACK=1
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 FLFLAGS=$(subst PIC,PIE,$(FCFLAGS))
-LDFLAGS=$(shell $(LIBPVN)/src/pvn.exe -L) -L$(LAPACK) -ltmglib -lrefblas $(shell $(LIBPVN)/src/pvn.exe -l)
+LDFLAGS=$(PVN_LDFLAGS) -L$(LAPACK) -ltmglib -lrefblas $(PVN_LIBS)
 
 SRCS=dmc.c   \
 nrm2.c       \
