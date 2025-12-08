@@ -8,7 +8,7 @@ else
 	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=SV2,NRM VECLEN=32 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef clean
 	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=SV2,NRM VECLEN=32 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef -j all
 	cd ../../VecNrmP/src
-	make clean
-	make -j all
+	make REPROBLAS=/usr/local clean
+	make REPROBLAS=/usr/local -j all
 	cd ../var
 fi

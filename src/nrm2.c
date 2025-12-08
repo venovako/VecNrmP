@@ -3,7 +3,7 @@
 /* even if the Fortran integers are four-byte long, this should work on little endian machines */
 extern float PVN_FABI(snrm2,SNRM2)(const size_t *const n, const float *const x, const int64_t *const incx);
 extern double PVN_FABI(dnrm2,DNRM2)(const size_t *const n, const double *const x, const int64_t *const incx);
-#ifndef EXTERNAL_REFERENCE
+#ifndef EXTERNAL_REFERENCE_LAPACK
 /* this assumes the Fortran integers are four-byte long */
 extern float PVN_FABI(slrran,SLRRAN)(int *const iseed);
 extern float PVN_FABI(slrrnd,SLRRND)(const int *const idist, int *const iseed);
@@ -36,7 +36,7 @@ static double PVN_FABI(pvn_lad_nrmf,PVN_LAD_NRMF)(const size_t *const n, const d
   const int64_t incx = INT64_C(1);
   return PVN_FABI(dnrm2r,DNRM2R)(n, x, &incx);
 }
-#else /* EXTERNAL_REFERENCE */
+#else /* EXTERNAL_REFERENCE_LAPACK */
 /* this assumes the Fortran integers are four-byte long */
 extern float PVN_FABI(slaran,SLARAN)(int *const iseed);
 extern float PVN_FABI(slarnd,SLARND)(const int *const idist, int *const iseed);
@@ -47,7 +47,8 @@ static inline float PVN_FABI(slrran,SLRRAN)(int *const iseed) { return PVN_FABI(
 static inline float PVN_FABI(slrrnd,SLRRND)(const int *const idist, int *const iseed) { return PVN_FABI(slarnd,SLARND)(idist, iseed); }
 static inline double PVN_FABI(dlrran,DLRRAN)(int *const iseed) { return PVN_FABI(dlaran,DLARAN)(iseed); }
 static inline double PVN_FABI(dlrrnd,DLRRND)(const int *const idist, int *const iseed) { return PVN_FABI(dlarnd,DLARND)(idist, iseed); }
-#endif /* ?EXTERNAL_REFERENCE */
+#endif /* ?EXTERNAL_REFERENCE_LAPACK */
+
 static float PVN_FABI(pvn_mks_nrmf,PVN_MKS_NRMF)(const size_t *const n, const float *const x)
 {
   if (!n)
@@ -72,6 +73,32 @@ static double PVN_FABI(pvn_mkd_nrmf,PVN_MKD_NRMF)(const size_t *const n, const d
   return PVN_FABI(dnrm2,DNRM2)(n, x, &incx);
 }
 
+#ifdef USE_REPROBLAS
+#include "reproBLAS.h"
+
+static float PVN_FABI(pvn_rbs_nrmf,PVN_RBS_NRMF)(const size_t *const n, const float *const x)
+{
+  if (!n)
+    return -1.0f;
+  if (!*n)
+    return -0.0f;
+  if (!x)
+    return -2.0f;
+  return reproBLAS_snrm2(*(const int*)n, x, 1);
+}
+
+static double PVN_FABI(pvn_rbd_nrmf,PVN_RBD_NRMF)(const size_t *const n, const double *const x)
+{
+  if (!n)
+    return -1.0;
+  if (!*n)
+    return -0.0;
+  if (!x)
+    return -2.0;
+  return reproBLAS_dnrm2(*(const int*)n, x, 1);
+}
+#endif /* USE_REPROBLAS */
+
 static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const float *const x)
 {
 #if (defined(PVN_OPENMP) && (PVN_OPENMP > 1))
@@ -92,27 +119,27 @@ static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const fl
   const float tbig = scalbnf(1.0f,  52);
   /* the three Blue's accumulators as in SNRM2 */
   float sml = 0.0f, med = 0.0f, big = 0.0f;
-#ifndef PVN_LAPACK
+#ifndef MIMIC_LAPACK
   /* the accumulator for subnormal inputs */
   float dnr = 0.0f;
-#endif /* !PVN_LAPACK */
+#endif /* !MIMIC_LAPACK */
 #if (defined(PVN_OPENMP) && (PVN_OPENMP > 1))
-#ifdef PVN_LAPACK
+#ifdef MIMIC_LAPACK
 #pragma omp parallel for default(none) shared(m,x,tsml,tbig) reduction(hcf:sml,med,big)
-#else /* !PVN_LAPACK */
+#else /* !MIMIC_LAPACK */
 #pragma omp parallel for default(none) shared(m,x,tsml,tbig) reduction(hcf:dnr,sml,med,big)
-#endif /* ?PVN_LAPACK */
+#endif /* ?MIMIC_LAPACK */
 #endif /* PVN_OPENMP */
   for (size_t i = 0u; i < m; ++i) {
     const float y = __builtin_fabsf(x[i]);
     if (y > 0.0f) {
-#ifdef PVN_LAPACK
+#ifdef MIMIC_LAPACK
       if (y < tsml)
-#else /* !PVN_LAPACK */
+#else /* !MIMIC_LAPACK */
       if (y < FLT_MIN)
         dnr = hypotf(dnr, scalbnf(y, 23));
       else if (y < tsml)
-#endif /* PVN_LAPACK */
+#endif /* MIMIC_LAPACK */
         sml = hypotf(sml, y);
       else if (y > tbig)
         big = hypotf(big, y);
@@ -120,10 +147,10 @@ static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const fl
         med = hypotf(med, y);
     }
   }
-#ifndef PVN_LAPACK
+#ifndef MIMIC_LAPACK
   if (dnr > 0.0f)
     sml = hypotf(sml, scalbnf(dnr, -23));
-#endif /* !PVN_LAPACK */
+#endif /* !MIMIC_LAPACK */
   if (sml > 0.0f)
     med = hypotf(med, sml);
   if (med > 0.0f)
@@ -151,27 +178,27 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
   const double tbig = scalbn(1.0,  486);
   /* the three Blue's accumulators as in DNRM2 */
   double sml = 0.0, med = 0.0, big = 0.0;
-#ifndef PVN_LAPACK
+#ifndef MIMIC_LAPACK
   /* the accumulator for subnormal inputs */
   double dnr = 0.0;
-#endif /* !PVN_LAPACK */
+#endif /* !MIMIC_LAPACK */
 #if (defined(PVN_OPENMP) && (PVN_OPENMP > 1))
-#ifdef PVN_LAPACK
+#ifdef MIMIC_LAPACK
 #pragma omp parallel for default(none) shared(m,x,tsml,tbig) reduction(hcd:sml,med,big)
-#else /* !PVN_LAPACK */
+#else /* !MIMIC_LAPACK */
 #pragma omp parallel for default(none) shared(m,x,tsml,tbig) reduction(hcd:dnr,sml,med,big)
-#endif /* ?PVN_LAPACK */
+#endif /* ?MIMIC_LAPACK */
 #endif /* PVN_OPENMP */
   for (size_t i = 0u; i < m; ++i) {
     const double y = __builtin_fabs(x[i]);
     if (y > 0.0) {
-#ifdef PVN_LAPACK
+#ifdef MIMIC_LAPACK
       if (y < tsml)
-#else /* !PVN_LAPACK */
+#else /* !MIMIC_LAPACK */
       if (y < DBL_MIN)
         dnr = hypot(dnr, scalbn(y, 52));
       else if (y < tsml)
-#endif /* ?PVN_LAPACK */
+#endif /* ?MIMIC_LAPACK */
         sml = hypot(sml, y);
       else if (y > tbig)
         big = hypot(big, y);
@@ -179,10 +206,10 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
         med = hypot(med, y);
     }
   }
-#ifndef PVN_LAPACK
+#ifndef MIMIC_LAPACK
   if (dnr > 0.0)
     sml = hypot(sml, scalbn(dnr, -52));
-#endif /* !PVN_LAPACK */
+#endif /* !MIMIC_LAPACK */
   if (sml > 0.0)
     med = hypot(med, sml);
   if (med > 0.0)
@@ -190,9 +217,9 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
   return big;
 }
 
-#ifndef PVN_LAPACK
+#ifndef MIMIC_LAPACK
 #include "../var/crxq.c"
-#endif /* !PVN_LAPACK */
+#endif /* !MIMIC_LAPACK */
 
 static double frelerr(const double e, const double f)
 {
@@ -291,20 +318,28 @@ int main(int argc, char *argv[])
 #ifdef PVN_CILK
   (void)printf((idist < 0) ? "pvn_snrm2[p]=" : "pvn_dnrm2[p]=");
 #else /* !PVN_CILK */
-#ifndef EXTERNAL_REFERENCE
+#ifndef EXTERNAL_REFERENCE_LAPACK
   (void)printf((idist < 0) ? "pvn_las_nrmf=" : "pvn_lad_nrmf=");
   (void)fflush(stdout);
   t = pvn_time_mono_ns();
   f = ((idist < 0) ? PVN_FABI(pvn_las_nrmf,PVN_LAS_NRMF)(&n, (const float*)x) : PVN_FABI(pvn_lad_nrmf,PVN_LAD_NRMF)(&n, (const double*)x));
   t = pvn_time_mono_ns() - t;
   (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
-#endif /* !EXTERNAL_REFERENCE */
+#endif /* !EXTERNAL_REFERENCE_LAPACK */
   (void)printf((idist < 0) ? "pvn_mks_nrmf=" : "pvn_mkd_nrmf=");
   (void)fflush(stdout);
   t = pvn_time_mono_ns();
   f = ((idist < 0) ? PVN_FABI(pvn_mks_nrmf,PVN_MKS_NRMF)(&n, (const float*)x) : PVN_FABI(pvn_mkd_nrmf,PVN_MKD_NRMF)(&n, (const double*)x));
   t = pvn_time_mono_ns() - t;
   (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
+#ifdef USE_REPROBLAS
+  (void)printf((idist < 0) ? "pvn_rbs_nrmf=" : "pvn_rbd_nrmf=");
+  (void)fflush(stdout);
+  t = pvn_time_mono_ns();
+  f = ((idist < 0) ? PVN_FABI(pvn_rbs_nrmf,PVN_RBS_NRMF)(&n, (const float*)x) : PVN_FABI(pvn_rbd_nrmf,PVN_RBD_NRMF)(&n, (const double*)x));
+  t = pvn_time_mono_ns() - t;
+  (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
+#endif /* USE_REPROBLAS */
   (void)printf((idist < 0) ? "pvn_snrm2[s]=" : "pvn_dnrm2[s]=");
 #endif /* ?PVN_CILK */
   (void)fflush(stdout);

@@ -1,15 +1,15 @@
 #include "pvn.h"
 
-#if !(defined(PVN_LAPACK) && defined(PVN_MPFR) && defined(__AVX__) && defined(__FMA__))
-#error PVN_LAPACK and PVN_MPFR and __AVX__ and __FMA__ have to be defined
-#endif /* !PVN_LAPACK || !PVN_MPFR || !__AVX__ || !__FMA__ */
-#ifndef EXTERNAL_REFERENCE
+#if !(defined(PVN_MPFR) && defined(__AVX__) && defined(__FMA__))
+#error PVN_MPFR and __AVX__ and __FMA__ have to be defined
+#endif /* !PVN_MPFR || !__AVX__ || !__FMA__ */
+#ifndef EXTERNAL_REFERENCE_LAPACK
 /* this assumes the Fortran integers are four-byte long */
 extern float PVN_FABI(slrran,SLRRAN)(int *const iseed);
 extern float PVN_FABI(slrrnd,SLRRND)(const int *const idist, int *const iseed);
 extern double PVN_FABI(dlrran,DLRRAN)(int *const iseed);
 extern double PVN_FABI(dlrrnd,DLRRND)(const int *const idist, int *const iseed);
-#else /* EXTERNAL_REFERENCE */
+#else /* EXTERNAL_REFERENCE_LAPACK */
 /* this assumes the Fortran integers are four-byte long */
 extern float PVN_FABI(slaran,SLARAN)(int *const iseed);
 extern float PVN_FABI(slarnd,SLARND)(const int *const idist, int *const iseed);
@@ -20,7 +20,7 @@ static inline float PVN_FABI(slrran,SLRRAN)(int *const iseed) { return PVN_FABI(
 static inline float PVN_FABI(slrrnd,SLRRND)(const int *const idist, int *const iseed) { return PVN_FABI(slarnd,SLARND)(idist, iseed); }
 static inline double PVN_FABI(dlrran,DLRRAN)(int *const iseed) { return PVN_FABI(dlaran,DLARAN)(iseed); }
 static inline double PVN_FABI(dlrrnd,DLRRND)(const int *const idist, int *const iseed) { return PVN_FABI(dlarnd,DLARND)(idist, iseed); }
-#endif /* ?EXTERNAL_REFERENCE */
+#endif /* ?EXTERNAL_REFERENCE_LAPACK */
 static double frelerr(const double e, const double f)
 {
   return ((e == 0.0) ? -0.0 : (__builtin_fabs(e - f) / scalbn(__builtin_fabs(e), -24)));
