@@ -3,11 +3,24 @@
 #if !(defined(PVN_LAPACK) && defined(PVN_MPFR) && defined(__AVX__) && defined(__FMA__))
 #error PVN_LAPACK and PVN_MPFR and __AVX__ and __FMA__ have to be defined
 #endif /* !PVN_LAPACK || !PVN_MPFR || !__AVX__ || !__FMA__ */
+#ifndef EXTERNAL_REFERENCE
+/* this assumes the Fortran integers are four-byte long */
+extern float PVN_FABI(slrran,SLRRAN)(int *const iseed);
+extern float PVN_FABI(slrrnd,SLRRND)(const int *const idist, int *const iseed);
+extern double PVN_FABI(dlrran,DLRRAN)(int *const iseed);
+extern double PVN_FABI(dlrrnd,DLRRND)(const int *const idist, int *const iseed);
+#else /* EXTERNAL_REFERENCE */
 /* this assumes the Fortran integers are four-byte long */
 extern float PVN_FABI(slaran,SLARAN)(int *const iseed);
 extern float PVN_FABI(slarnd,SLARND)(const int *const idist, int *const iseed);
 extern double PVN_FABI(dlaran,DLARAN)(int *const iseed);
 extern double PVN_FABI(dlarnd,DLARND)(const int *const idist, int *const iseed);
+
+static inline float PVN_FABI(slrran,SLRRAN)(int *const iseed) { return PVN_FABI(slaran,SLARAN)(iseed); }
+static inline float PVN_FABI(slrrnd,SLRRND)(const int *const idist, int *const iseed) { return PVN_FABI(slarnd,SLARND)(idist, iseed); }
+static inline double PVN_FABI(dlrran,DLRRAN)(int *const iseed) { return PVN_FABI(dlaran,DLARAN)(iseed); }
+static inline double PVN_FABI(dlrrnd,DLRRND)(const int *const idist, int *const iseed) { return PVN_FABI(dlarnd,DLARND)(idist, iseed); }
+#endif /* ?EXTERNAL_REFERENCE */
 static double frelerr(const double e, const double f)
 {
   return ((e == 0.0) ? -0.0 : (__builtin_fabs(e - f) / scalbn(__builtin_fabs(e), -24)));
@@ -66,19 +79,19 @@ int main(int argc, char *argv[])
   const int adist = abs(idist);
   if (idist == -3) {
     for (size_t i = (size_t)0u; i < n; ++i)
-      ((float*)x)[i] = PVN_FABI(slarnd,SLARND)(&adist, iseed);
+      ((float*)x)[i] = PVN_FABI(slrrnd,SLRRND)(&adist, iseed);
   }
   else if (idist == -1) {
     for (size_t i = (size_t)0u; i < n; ++i)
-      ((float*)x)[i] = PVN_FABI(slaran,SLARAN)(iseed);
+      ((float*)x)[i] = PVN_FABI(slrran,SLRRAN)(iseed);
   }
   else if (idist == 1) {
     for (size_t i = (size_t)0u; i < n; ++i)
-      ((double*)x)[i] = PVN_FABI(dlaran,DLARAN)(iseed);
+      ((double*)x)[i] = PVN_FABI(dlrran,DLRRAN)(iseed);
   }
   else if (idist == 3) {
     for (size_t i = (size_t)0u; i < n; ++i)
-      ((double*)x)[i] = PVN_FABI(dlarnd,DLARND)(&adist, iseed);
+      ((double*)x)[i] = PVN_FABI(dlrrnd,DLRRND)(&adist, iseed);
   }
   else
     return 9;

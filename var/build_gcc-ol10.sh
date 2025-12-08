@@ -4,6 +4,6 @@ cd ../../libpvn/src
 make COMPILER=gcc NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef clean
 make COMPILER=gcc NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef -j all
 cd ../../VecNrmP/src
-make LAPACK=../../lapack clean
-make LAPACK=../../lapack -j all
+make clean
+make -j all
 cd ../var

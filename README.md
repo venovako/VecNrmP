@@ -10,9 +10,6 @@ For building [libpvn](https://github.com/venovako/libpvn) and this repository pl
 They probably have to be tailored to each particular system.
 If the GNU compilers come with a suffix, e.g., `-15`, then set the `GNU` variable to it.
 
-The `LAPACK` variable should specify a directory containing the fully built Reference [LAPACK](https://github.com/Reference-LAPACK/lapack) library.
-Instead, [lapack](https://github.com/venovako/lapack) (a fork) could be used, built with `INSTALL/make.inc_gfortran-lp64.txt` as `make.inc` and `NDEBUG=3` set in the `gmake` invocation.
-
 There are several testers available:
 - `src/laf_relerr.exe` computes relative error bounds for the Algorithm L,
 - `src/crd_relerr.exe` computes relative error bounds for the Algorithm C,

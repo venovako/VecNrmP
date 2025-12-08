@@ -7,6 +7,6 @@ else
 	cd ../../libpvn/src
 	make COMPILER=gcc COMPILER_SUFFIX=${GNU} NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=$HOME/gnu MPFR=$HOME/gnu SLEEF=$HOME/gnu clean all
 	cd ../../VecNrmP/src
-	make LAPACK=../../lapack clean all
+	make clean all
 	cd ../var
 fi

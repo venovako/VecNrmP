@@ -1,15 +1,54 @@
 #include "pvn.h"
 
+/* even if the Fortran integers are four-byte long, this should work on little endian machines */
+extern float PVN_FABI(snrm2,SNRM2)(const size_t *const n, const float *const x, const int64_t *const incx);
+extern double PVN_FABI(dnrm2,DNRM2)(const size_t *const n, const double *const x, const int64_t *const incx);
+#ifndef EXTERNAL_REFERENCE
+/* this assumes the Fortran integers are four-byte long */
+extern float PVN_FABI(slrran,SLRRAN)(int *const iseed);
+extern float PVN_FABI(slrrnd,SLRRND)(const int *const idist, int *const iseed);
+extern double PVN_FABI(dlrran,DLRRAN)(int *const iseed);
+extern double PVN_FABI(dlrrnd,DLRRND)(const int *const idist, int *const iseed);
+/* even if the Fortran integers are four-byte long, this should work on little endian machines */
+extern float PVN_FABI(snrm2r,SNRM2R)(const size_t *const n, const float *const x, const int64_t *const incx);
+extern double PVN_FABI(dnrm2r,DNRM2R)(const size_t *const n, const double *const x, const int64_t *const incx);
+
+static float PVN_FABI(pvn_las_nrmf,PVN_LAS_NRMF)(const size_t *const n, const float *const x)
+{
+  if (!n)
+    return -1.0f;
+  if (!*n)
+    return -0.0f;
+  if (!x)
+    return -2.0f;
+  const int64_t incx = INT64_C(1);
+  return PVN_FABI(snrm2r,SNRM2R)(n, x, &incx);
+}
+
+static double PVN_FABI(pvn_lad_nrmf,PVN_LAD_NRMF)(const size_t *const n, const double *const x)
+{
+  if (!n)
+    return -1.0;
+  if (!*n)
+    return -0.0;
+  if (!x)
+    return -2.0;
+  const int64_t incx = INT64_C(1);
+  return PVN_FABI(dnrm2r,DNRM2R)(n, x, &incx);
+}
+#else /* EXTERNAL_REFERENCE */
 /* this assumes the Fortran integers are four-byte long */
 extern float PVN_FABI(slaran,SLARAN)(int *const iseed);
 extern float PVN_FABI(slarnd,SLARND)(const int *const idist, int *const iseed);
 extern double PVN_FABI(dlaran,DLARAN)(int *const iseed);
 extern double PVN_FABI(dlarnd,DLARND)(const int *const idist, int *const iseed);
-/* even if the Fortran integers are four-byte long, this should work on little endian machines */
-extern float PVN_FABI(snrm2,SNRM2)(const size_t *const n, const float *const x, const int64_t *const incx);
-extern double PVN_FABI(dnrm2,DNRM2)(const size_t *const n, const double *const x, const int64_t *const incx);
 
-static float PVN_FABI(pvn_las_nrmf,PVN_LAS_NRMF)(const size_t *const n, const float *const x)
+static inline float PVN_FABI(slrran,SLRRAN)(int *const iseed) { return PVN_FABI(slaran,SLARAN)(iseed); }
+static inline float PVN_FABI(slrrnd,SLRRND)(const int *const idist, int *const iseed) { return PVN_FABI(slarnd,SLARND)(idist, iseed); }
+static inline double PVN_FABI(dlrran,DLRRAN)(int *const iseed) { return PVN_FABI(dlaran,DLARAN)(iseed); }
+static inline double PVN_FABI(dlrrnd,DLRRND)(const int *const idist, int *const iseed) { return PVN_FABI(dlarnd,DLARND)(idist, iseed); }
+#endif /* ?EXTERNAL_REFERENCE */
+static float PVN_FABI(pvn_mks_nrmf,PVN_MKS_NRMF)(const size_t *const n, const float *const x)
 {
   if (!n)
     return -1.0f;
@@ -21,7 +60,7 @@ static float PVN_FABI(pvn_las_nrmf,PVN_LAS_NRMF)(const size_t *const n, const fl
   return PVN_FABI(snrm2,SNRM2)(n, x, &incx);
 }
 
-static double PVN_FABI(pvn_lad_nrmf,PVN_LAD_NRMF)(const size_t *const n, const double *const x)
+static double PVN_FABI(pvn_mkd_nrmf,PVN_MKD_NRMF)(const size_t *const n, const double *const x)
 {
   if (!n)
     return -1.0;
@@ -211,19 +250,19 @@ int main(int argc, char *argv[])
   const int adist = abs(idist);
   if (idist == -3) {
     for (size_t i = (size_t)0u; i < n; ++i)
-      ((float*)x)[i] = PVN_FABI(slarnd,SLARND)(&adist, iseed);
+      ((float*)x)[i] = PVN_FABI(slrrnd,SLRRND)(&adist, iseed);
   }
   else if (idist == -1) {
     for (size_t i = (size_t)0u; i < n; ++i)
-      ((float*)x)[i] = PVN_FABI(slaran,SLARAN)(iseed);
+      ((float*)x)[i] = PVN_FABI(slrran,SLRRAN)(iseed);
   }
   else if (idist == 1) {
     for (size_t i = (size_t)0u; i < n; ++i)
-      ((double*)x)[i] = PVN_FABI(dlaran,DLARAN)(iseed);
+      ((double*)x)[i] = PVN_FABI(dlrran,DLRRAN)(iseed);
   }
   else if (idist == 3) {
     for (size_t i = (size_t)0u; i < n; ++i)
-      ((double*)x)[i] = PVN_FABI(dlarnd,DLARND)(&adist, iseed);
+      ((double*)x)[i] = PVN_FABI(dlrrnd,DLRRND)(&adist, iseed);
   }
   else
     return 8;
@@ -252,10 +291,18 @@ int main(int argc, char *argv[])
 #ifdef PVN_CILK
   (void)printf((idist < 0) ? "pvn_snrm2[p]=" : "pvn_dnrm2[p]=");
 #else /* !PVN_CILK */
+#ifndef EXTERNAL_REFERENCE
   (void)printf((idist < 0) ? "pvn_las_nrmf=" : "pvn_lad_nrmf=");
   (void)fflush(stdout);
   t = pvn_time_mono_ns();
   f = ((idist < 0) ? PVN_FABI(pvn_las_nrmf,PVN_LAS_NRMF)(&n, (const float*)x) : PVN_FABI(pvn_lad_nrmf,PVN_LAD_NRMF)(&n, (const double*)x));
+  t = pvn_time_mono_ns() - t;
+  (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
+#endif /* !EXTERNAL_REFERENCE */
+  (void)printf((idist < 0) ? "pvn_mks_nrmf=" : "pvn_mkd_nrmf=");
+  (void)fflush(stdout);
+  t = pvn_time_mono_ns();
+  f = ((idist < 0) ? PVN_FABI(pvn_mks_nrmf,PVN_MKS_NRMF)(&n, (const float*)x) : PVN_FABI(pvn_mkd_nrmf,PVN_MKD_NRMF)(&n, (const double*)x));
   t = pvn_time_mono_ns() - t;
   (void)printf("%# .17e relerr/ε %# .17e in %21lld ns\n", f, ((idist < 0) ? frelerr(e, f) : erelerr(e, f)), t);
   (void)printf((idist < 0) ? "pvn_snrm2[s]=" : "pvn_dnrm2[s]=");

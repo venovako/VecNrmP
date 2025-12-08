@@ -17,6 +17,58 @@ include ../../libpvn/src/pvn.mk
 CC=$(PVN_CC)
 FC=$(PVN_FC)
 CPPFLAGS=-DPVN_LAPACK=1
+
+CSRCS=dmc.c  \
+nrm2.c       \
+nrmp.c       \
+parse_p.c    \
+one_p.c      \
+two_p.c      \
+crh_relerr.c \
+laf_relerr.c \
+reh_relerr.c \
+rhh_relerr.c
+
+# FSSRCS=Bf90/snrm1.f90 Bf90/snrmf.f90 Bf90/snrmI.f90 Bf90/snrmp.f90
+# FDSRCS=Bf90/dnrm1.f90 Bf90/dnrmf.f90 Bf90/dnrmI.f90 Bf90/dnrmp.f90
+# FQSRCS=Bf90/qnrm1.f90 Bf90/qnrmf.f90 Bf90/qnrmI.f90
+# FXSRCS=Bf90/xnrmI.f90 Bf90/xnrm1.f90 Bf90/xnrmf.f90
+
+EXES=$(CSRCS:.c=.exe)
+ifeq ($(findstring -fopencilk,$(PVN_CFLAGS)),-fopencilk)
+ifndef LAPACK
+error LAPACK has to be set
+endif # !LAPACK
+else # !OpenCilk
+EXES += Blue.exe
+endif # ?OpenCilk
+ifdef LAPACK
+CPPFLAGS += -DEXTERNAL_REFERENCE="\"$(LAPACK)\""
+MKLFLAGS=-L$(LAPACK) -ltmglib -lrefblas
+else # !LAPACK
+FSRCS=dnrm2r.f90 snrm2r.f90 dlrran.f90 dlrrnd.f90 slrran.f90 slrrnd.f90
+FOBJS=$(FSRCS:.f90=.o)
+ifdef MKLROOT
+CPPFLAGS += -I${MKLROOT}/include/intel64/lp64 -I${MKLROOT}/include
+ifeq ($(OS),Darwin)
+CPPFLAGS += -DSEQUENTIAL_MKL="intel_lp64"
+MKLFLAGS=${MKLROOT}/lib/libmkl_intel_lp64.a ${MKLROOT}/lib/libmkl_sequential.a ${MKLROOT}/lib/libmkl_core.a
+else # Linux
+MKLFLAGS=-Wl,--start-group
+ifeq ($(findstring gfortran,$(FC)),gfortran)
+CPPFLAGS += -DSEQUENTIAL_MKL="gf_lp64"
+MKLFLAGS += ${MKLROOT}/lib/libmkl_gf_lp64.a
+else # !gfortran
+CPPFLAGS += -DSEQUENTIAL_MKL="intel_lp64"
+MKLFLAGS += ${MKLROOT}/lib/libmkl_intel_lp64.a
+endif # ?gfortran
+MKLFLAGS += ${MKLROOT}/lib/libmkl_sequential.a ${MKLROOT}/lib/libmkl_core.a -Wl,--end-group $(shell if [ -L /usr/lib64/libmemkind.so ]; then echo '-lmemkind'; fi)
+endif # ?Darwin
+else # !MKLROOT
+error MKLROOT has to be set
+endif # ?MKLROOT
+endif # ?LAPACK
+
 ifdef MARCH
 CPPFLAGS += $(subst VECLEN=32,VECLEN=64,$(PVN_CPPFLAGS))
 CFLAGS=$(CPPFLAGS) $(subst -xHost,-x$(MARCH),$(PVN_CFLAGS))
@@ -28,49 +80,20 @@ FCFLAGS=$(CPPFLAGS) $(PVN_FCFLAGS)
 endif # ?MARCH
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 FLFLAGS=$(subst PIC,PIE,$(FCFLAGS))
-LDFLAGS=$(PVN_LDFLAGS) -L$(LAPACK) -ltmglib -lrefblas $(PVN_LIBS)
-
-SRCS=dmc.c   \
-nrm2.c       \
-nrmp.c       \
-parse_p.c    \
-one_p.c      \
-two_p.c      \
-crh_relerr.c \
-laf_relerr.c \
-reh_relerr.c \
-rhh_relerr.c
-FSSRCS=Bf90/snrm1.f90 Bf90/snrmf.f90 Bf90/snrmI.f90 Bf90/snrmp.f90
-FDSRCS=Bf90/dnrm1.f90 Bf90/dnrmf.f90 Bf90/dnrmI.f90 Bf90/dnrmp.f90
-FQSRCS=Bf90/qnrm1.f90 Bf90/qnrmf.f90 Bf90/qnrmI.f90
-FXSRCS=Bf90/xnrmI.f90 Bf90/xnrm1.f90 Bf90/xnrmf.f90
-ifeq ($(findstring ifx,$(FC)),ifx)
-FSRCS=$(FSSRCS) $(FDSRCS) $(FQSRCS)
-endif # ifx
-ifeq ($(findstring gfortran,$(FC)),gfortran)
-FSRCS=$(FSSRCS) $(FDSRCS) $(FQSRCS)
-ifeq ($(ARCH),x86_64)
-FSRCS += $(FXSRCS)
-endif # x86_64
-endif # gfortran
-EXES=$(SRCS:.c=.exe)
-ifdef FSRCS
-FOBJS=$(FSRCS:.f90=.o)
-EXES += Blue.exe
-endif # FSRCS
+LDFLAGS=$(PVN_LDFLAGS) $(FOBJS) $(MKLFLAGS) $(PVN_LIBS)
 
 .PHONY: all help clean
 
-all: $(EXES) $(FOBJS)
-	@echo "BUILT: $(EXES) $(FOBJS)"
+all: $(FOBJS) $(EXES)
+	@echo "BUILT: $(FOBJS) $(EXES)"
 
 help:
-	@echo $(MAKE) "LAPACK=... [CC=icx => MARCH=...] [all|clean|help]"
+	@echo $(MAKE) "[LAPACK=...] [CC=icx => MARCH=...] [all|clean|help]"
 
-%.exe : %.c GNUmakefile
+%.exe : %.c $(FOBJS) GNUmakefile
 	$(CC) $(CLFLAGS) $< -o $@ $(LDFLAGS)
 
-Bf90/%.o : Bf90/%.f90 GNUmakefile
+%.o : %.f90 GNUmakefile
 	$(FC) $(FCFLAGS) $< -c -o $@
 
 Blue.exe: Blue.F90 GNUmakefile

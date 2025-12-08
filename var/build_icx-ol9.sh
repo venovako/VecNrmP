@@ -14,7 +14,7 @@ else
 		scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=SV2,NRM VECLEN=32 GMP=/opt/gmp MPFR=/opt/mpfr STATIC=-s clean all"
 		cp -fv ../../dist/libpvn/libpvn.* .
 		cd ../../VecNrmP/src
-		scl enable gcc-toolset-14 "make LAPACK=../../lapack MARCH=${TGT} clean all"
+		scl enable gcc-toolset-14 "make MARCH=${TGT} clean all"
 		mkdir -pv ../../dist/VecNrmP
 		cp -fv *.exe ../../dist/VecNrmP
 		cd ../..
