@@ -37,12 +37,12 @@ rhh_relerr.c
 EXES=$(CSRCS:.c=.exe)
 ifeq ($(findstring flang,$(FC)),flang)
 ifndef LAPACK
-error LAPACK has to be set when using flang
+$(error LAPACK has to be set when using flang)
 endif # !LAPACK
 else # !flang
 ifeq ($(findstring nvfortran,$(FC)),nvfortran)
 ifndef LAPACK
-error LAPACK has to be set when using nvfortran
+$(error LAPACK has to be set when using nvfortran)
 endif # !LAPACK
 else # !nvfortran
 EXES += Blue.exe
@@ -75,7 +75,7 @@ MKLFLAGS += ${ONEAPI_ROOT}/compiler/latest/lib/libifcoremt_pic.a
 endif # ifx
 endif # ?Darwin
 else # !MKLROOT
-error MKLROOT has to be set
+$(error MKLROOT has to be set)
 endif # ?MKLROOT
 endif # ?LAPACK
 
