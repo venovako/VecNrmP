@@ -70,6 +70,9 @@ CPPFLAGS += -DUSE_SEQUENTIAL_MKL="intel_lp64"
 MKLFLAGS += ${MKLROOT}/lib/libmkl_intel_lp64.a
 endif # ?gfortran
 MKLFLAGS += ${MKLROOT}/lib/libmkl_sequential.a ${MKLROOT}/lib/libmkl_core.a -Wl,--end-group $(shell if [ -L /usr/lib64/libmemkind.so ]; then echo '-lmemkind'; fi)
+ifeq ($(findstring ifx,$(FC)),ifx)
+MKLFLAGS += ${ONEAPI_ROOT}/compiler/latest/lib/libifcoremt_pic.a
+endif # ifx
 endif # ?Darwin
 else # !MKLROOT
 error MKLROOT has to be set
