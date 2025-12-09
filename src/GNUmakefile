@@ -35,13 +35,19 @@ rhh_relerr.c
 # FXSRCS=Bf90/xnrmI.f90 Bf90/xnrm1.f90 Bf90/xnrmf.f90
 
 EXES=$(CSRCS:.c=.exe)
-ifeq ($(findstring -fopencilk,$(PVN_CFLAGS)),-fopencilk)
+ifeq ($(findstring flang,$(FC)),flang)
 ifndef LAPACK
-error LAPACK has to be set
+error LAPACK has to be set when using flang
 endif # !LAPACK
-else # !OpenCilk
+else # !flang
+ifeq ($(findstring nvfortran,$(FC)),nvfortran)
+ifndef LAPACK
+error LAPACK has to be set when using nvfortran
+endif # !LAPACK
+else # !nvfortran
 EXES += Blue.exe
-endif # ?OpenCilk
+endif # ?nvfortran
+endif # ?flang
 
 ifdef LAPACK
 CPPFLAGS += -DEXTERNAL_REFERENCE_LAPACK="\"$(LAPACK)\""
