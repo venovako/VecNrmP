@@ -51,7 +51,7 @@ BUILD_MPI = false
 #AVX := false
 
 # select optimization flags (comment for auto)
-OPTFLAGS := -O3
+OPTFLAGS := -O3 -march=cascadelake
 
 # select endianness (by default we are running on the same architecture we are
 # building - if you're cross compiling then you should set this manually)
