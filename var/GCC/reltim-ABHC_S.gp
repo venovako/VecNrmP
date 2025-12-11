@@ -1,12 +1,12 @@
 set term cairolatex pdf standalone header "\\usepackage{amsmath,amsfonts}" color font ", 10" size 10cm,6cm
 set output "reltim-ABHC_S.tex"
 
-set key top right horizontal box spacing 1.75 width -0.5
+set key top center horizontal box spacing 1.45
 
 set xrange [0:32]
 set xlabel "run of a scalar algorithm"
 set xtics ("1" 1, "16" 16, "31" 31)
-#set yrange [3:10]
+set yrange [0:8]
 set ylabel "slowdown versus $L_{\\mathtt{\\mathtt{S}}}$"
 
 set datafile columnheaders

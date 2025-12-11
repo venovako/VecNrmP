@@ -13,10 +13,10 @@ set ytics ("$10^0$" 1e0, "$10^1$" 1e1, "$10^2$" 1e2, "$10^3$" 1e3, "$10^4$" 1e4,
 
 set datafile columnheaders
 plot "us.csv" using 1:7 with points title "$L_{\\mathtt{S}}^{\\mathcal{U}}$" pointtype 1 linetype 7, \
-     "us.csv" using 1:28 with points title "$C_{\\mathtt{S}}^{\\mathcal{U}}$" pointtype 2 linetype 1, \
+     "us.csv" using 1:34 with points title "$C_{\\mathtt{S}}^{\\mathcal{U}}$" pointtype 2 linetype 1, \
      "ns.csv" using 1:7 with points title "$L_{\\mathtt{S}}^{\\mathcal{N}}$" pointtype 6 linetype 7, \
-     "ns.csv" using 1:28 with points title "$C_{\\mathtt{S}}^{\\mathcal{N}}$" pointtype 4 linetype 1, \
+     "ns.csv" using 1:34 with points title "$C_{\\mathtt{S}}^{\\mathcal{N}}$" pointtype 4 linetype 1, \
      "ud.csv" using 1:7 with points title "$L_{\\mathtt{D}}^{\\mathcal{U}}$" pointtype 11 linetype 2, \
-     "ud.csv" using 1:28 with points title "$C_{\\mathtt{D}}^{\\mathcal{U}}$" pointtype 9 linetype 3, \
+     "ud.csv" using 1:34 with points title "$C_{\\mathtt{D}}^{\\mathcal{U}}$" pointtype 9 linetype 3, \
      "nd.csv" using 1:7 with points title "$L_{\\mathtt{D}}^{\\mathcal{N}}$" pointtype 14 linetype 0, \
-     "nd.csv" using 1:28 with points title "$C_{\\mathtt{D}}^{\\mathcal{N}}$" pointtype 12 linetype 0
+     "nd.csv" using 1:34 with points title "$C_{\\mathtt{D}}^{\\mathcal{N}}$" pointtype 12 linetype 0
