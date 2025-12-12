@@ -26,11 +26,13 @@ int main(int argc, char* argv[])
       return 3;
     (void)fprintf(f[j], "\"p");
     switch (j) {
-    case 0: (void)fprintf(f[j], "=1"); break;
-    case 1: (void)fprintf(f[j], "≈√2"); break;
-    case 2: (void)fprintf(f[j], "≈e"); break;
-    case 3: (void)fprintf(f[j], "≈π"); break;
-    case 4: (void)fprintf(f[j], "=∞"); break;
+    case 0: (void)fprintf(f[j], "=1/2"); break;
+    case 1: (void)fprintf(f[j], "≈2/3"); break;
+    case 2: (void)fprintf(f[j], "=1"); break;
+    case 3: (void)fprintf(f[j], "≈√2"); break;
+    case 4: (void)fprintf(f[j], "≈e"); break;
+    case 5: (void)fprintf(f[j], "≈π"); break;
+    case 6: (void)fprintf(f[j], "=∞"); break;
     default: (void)fprintf(f[j], "…%d", j); break;
     }
     (void)fprintf(f[j], "\", \"MPV\", \"MPT\", \"REV\", \"REE\", \"RET\", \"RXV\", \"RXE\", \"RXT\", \"RYV\", \"RYE\", \"RYT\", \"RZV\", \"RZE\", \"RZT\"\n");
