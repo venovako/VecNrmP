@@ -24,6 +24,7 @@ nrmp.c       \
 parse_p.c    \
 one_p.c      \
 two_p.c      \
+mreatp.c     \
 crh_relerr.c \
 laf_relerr.c \
 reh_relerr.c \
