@@ -56,6 +56,9 @@ int main(int argc, char* argv[])
         (void)fprintf(f[j], "%s,", (l+13));
         if (k)
           (void)fprintf(f[j], "%s,", (l+48));
+        else
+          while (isspace(l[o]))
+            ++o;
         (void)fprintf(f[j], " %s", (l+o));
         (void)fputc(((k < 4) ? ',' : '\n'), f[j]);
       }
