@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
       if ((n = getline(&l, &m, stdin)) <= (ssize_t)0)
         return 5;
       (void)fprintf(f[j], "%2d,", i_);
-      for (int k = 0, o = 75; k < 5; ++k) {
+      for (int k = 0, o = 75; k < 7; ++k) {
         if ((n = getline(&l, &m, stdin)) <= (ssize_t)0)
           return 6;
         l[97] = l[72] = l[37] = '\0';
