@@ -6,6 +6,9 @@ The testing code is contained in the following two repositories, with their usab
 - [libpvn](https://github.com/venovako/libpvn "libpvn"): 8e89c56c011f4ade8dd318abdc1492ba09fd0660
 - [VecNrmP](https://github.com/venovako/VecNrmP "VecNrmP"): 43a0c08eaa9c9bf989a79a69eaaf898ac5f98cdc
 
+The key routines of the algorithms `A`, `B`, `H`, `X`, `Y`, and `Z` are implemented in libpvn, in ``src/pvn_vec.h`` and ``src/pvn_nrm.c``.
+Here, in VecNrmP, are mostly the test drivers, an implementation of the algorithm `C`, an example of `B` in Fortran, and the testing results.
+
 The external software versions with which the testing code should be able to be built:
 - [GMP](https://gmplib.org/repo/gmp "GMP"): 18489:b54d1f94b4ee
 - [MPFR](https://gitlab.inria.fr/mpfr/mpfr "MPFR"): 8288743fb20db6102f42f4fd81e7c88b0fecde9a
@@ -38,6 +41,6 @@ They should be tailored to each particular system.
 
 ## Hardware
 
-Intel Xeon Phi 7210 processors, with 64 cores and 96 GiB of RAM each, had Hyper Threading disabled and the MCDRAM used as the last-level cache.
+Two Intel Xeon Phi 7210 processors, with 64 cores and 96 GiB of RAM each, had Hyper Threading disabled and the MCDRAM used as the last-level cache.
 
-An Intel Cascadelake processor had 16 GiB RAM available.
+A system with one Intel Cascadelake processor had 16 GiB RAM available.
