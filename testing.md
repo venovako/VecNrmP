@@ -17,10 +17,11 @@ The external software versions with which the testing code should be able to be 
 
 The relevant CORE-MATH parts have been integrated in libpvn, so there is no need to build them separately.
 Also, with GCC, the Reference LAPACK does not have to be built, since the relevant routines have been copied to VecNrmP and renamed, to avoid clashing with the corresponding MKL ones.
+SLEEF has to be built with `SLEEF_BUILD_INLINE_HEADERS` CMake variable set to `ON`.
 With OpenCilk, the MKL and ReproBLAS testing is meant to be skipped, and the Reference LAPACK is expected to have been built.
 
-Static Linux executables for the Intel Cascadelake CPUs can be downloaded as
-[VecNrmP.tar.zst](https://venovako.eu/x86_64/VecNrmP.tar.zst "Cascadelake").
+Static Linux executables for the Intel Cascadelake CPUs have been built on Oracle Linux 9.7 and can be downloaded as [VecNrmP.tar.zst](https://venovako.eu/x86_64/VecNrmP.tar.zst "Cascadelake").
+HACK: the static `glibc` library has been taken from a Fedora RPM.
 
 A subset of the GCC's options used on Cascadelake:
 - `gcc`: ``-O3 -fno-math-errno -std=gnu2x -fPIC -ffp-contract=fast -fvect-cost-model=unlimited -pthread -fopenmp-simd -march=cascadelake``
@@ -31,4 +32,3 @@ With OpenCilk on Intel Xeon Phi 7210, some of the used options are:
 
 Some examples of building libpvn and VecNrmP on various systems are available as the ``build_*.sh`` scripts in the ``var`` subdirectory here.
 They should be tailored to each particular system.
-A hack: the static `glibc` library has been taken from a Fedora RPM.
