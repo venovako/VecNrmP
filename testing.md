@@ -1,5 +1,7 @@
 # Testing environment
 
+## Software
+
 The testing code is contained in the following two repositories, with their usable versions denoted:
 - [libpvn](https://github.com/venovako/libpvn "libpvn"): 8e89c56c011f4ade8dd318abdc1492ba09fd0660
 - [VecNrmP](https://github.com/venovako/VecNrmP "VecNrmP"): 43a0c08eaa9c9bf989a79a69eaaf898ac5f98cdc
@@ -21,7 +23,8 @@ SLEEF has to be built with `SLEEF_BUILD_INLINE_HEADERS` CMake variable set to `O
 With OpenCilk, the MKL and ReproBLAS testing is meant to be skipped, and the Reference LAPACK is expected to have been built.
 
 Static Linux executables for the Intel Cascadelake CPUs have been built on Oracle Linux 9.7 and can be downloaded as [VecNrmP.tar.zst](https://venovako.eu/x86_64/VecNrmP.tar.zst "Cascadelake").
-HACK: the static `glibc` library has been taken from a Fedora RPM.
+HACK: the static `glibc` library (2.41.9000-16.fc43) has been taken from a Fedora RPM.
+Usually, dynamic executables are built.
 
 A subset of the GCC's options used on Cascadelake:
 - `gcc`: ``-O3 -fno-math-errno -std=gnu2x -fPIC -ffp-contract=fast -fvect-cost-model=unlimited -pthread -fopenmp-simd -march=cascadelake``
@@ -32,3 +35,9 @@ With OpenCilk on Intel Xeon Phi 7210, some of the used options are:
 
 Some examples of building libpvn and VecNrmP on various systems are available as the ``build_*.sh`` scripts in the ``var`` subdirectory here.
 They should be tailored to each particular system.
+
+## Hardware
+
+Intel Xeon Phi 7210 processors, with 64 cores and 96 GiB of RAM each, had Hyper Threading disabled and the MCDRAM used as the last-level cache.
+
+An Intel Cascadelake processor had 16 GiB RAM available.
