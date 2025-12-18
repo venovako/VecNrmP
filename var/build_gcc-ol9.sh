@@ -7,16 +7,18 @@ else
 	if [ "${TGT}" != "Host" ]
 	then
 		cd ../../libpvn/src
-		scl enable gcc-toolset-14 "make COMPILER=gcc NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=${HOME}/gnu MARCH=${TGT} STATIC=-s clean all"
+		scl enable gcc-toolset-14 "make COMPILER=gcc NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef MARCH=${TGT} STATIC=-s clean all"
 		cd ../../VecNrmP/src
 		scl enable gcc-toolset-14 "make MARCH=${TGT} REPROBLAS=/opt/ReproBLAS clean all"
-		rm -frv ../../dist
+		rm -frv ../../dist/VecNrmP
 		mkdir -pv ../../dist/VecNrmP
 		cp -fv *.exe ../../dist/VecNrmP
 		cd ../..
-		rm -fv dist.tar*
-		tar cvf dist.tar dist
-		zstd --single-thread --rm --ultra -22 dist.tar
+		rm -fv VecNrmP.tar*
+		cd dist
+		tar cvf ../VecNrmP.tar VecNrmP
+		cd ..
+		zstd --single-thread --rm --ultra -22 VecNrmP.tar
 		cd VecNrmP/var
 	else
 		echo "Please build the usual way."
