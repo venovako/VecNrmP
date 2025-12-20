@@ -1,5 +1,5 @@
 set term cairolatex pdf standalone header "\\usepackage{amsmath,amsfonts}" color font ", 10" size 10cm,6cm
-set output "iter-relerr.tex"
+set output "fig1.tex"
 
 set key at graph 0.9375, 0.825 horizontal box spacing 1.75
 set logscale y 10
