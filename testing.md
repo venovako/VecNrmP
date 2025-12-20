@@ -7,7 +7,7 @@ The testing code is contained in the following two repositories, with their usab
 - [VecNrmP](https://github.com/venovako/VecNrmP "VecNrmP"): 43a0c08eaa9c9bf989a79a69eaaf898ac5f98cdc
 
 The key routines of the algorithms `A`, `B`, `H`, `X`, `Y`, and `Z` are implemented in libpvn, in ``src/pvn_vec.h`` and ``src/pvn_nrm.c``.
-Here, in VecNrmP, are mostly the test drivers, an implementation of the algorithm `C`, an example of `B` in Fortran, and the testing results.
+Here, in VecNrmP, are mostly the test drivers, the estimators of the relative error bounds, an implementation of the algorithm `C`, an example of `B` in Fortran, and the testing results.
 
 The external software versions with which the testing code should be able to be built:
 - [GMP](https://gmplib.org/repo/gmp "GMP"): 18489:b54d1f94b4ee
