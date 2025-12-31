@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/MathJax/tex-chtml.js" id="MathJax-script" defer></script>
+    <title>recursive computation of the vector p-norm</title>
+  </head>
+  <body>
+    <h1>recursive computation of the vector \(p\)-norm</h1>
+    <p>A successfull submission of the form below should compute the vector \(p\)-norm of the supplied real vector \(\mathbf{x}\).</p>
+    <hr>
+    <form action="pnrm.cgi" method="post" enctype="multipart/form-data" target="_blank">
+      <p>How many rows does the input vector have (\(1 \le m \le 262144\))?<br>
+        <label for="mn">\(m\):</label>
+        <input type="number" id="mn" name="m" value="1" min="1" max="262144" required />
+      </p>
+      <p>What \(p\), where \(\mathtt{FLT\_MIN}\le p\le\infty\)?<br>
+        For example, \(p=2\implies\|\mathbf{x}\|_F\).<br>
+        <label for="pn">\(p\):</label>
+        <input type="text" id="pn" name="p" value="INFINITY" minlength="1" size="24" required />
+      </p>
+      <fieldset>
+        <legend>Datatype:</legend>
+        <table>
+          <tr>
+            <td><input type="radio" id="floatr" name="prec" value="float" /><label for="floatr"><kbd>float</kbd></label></td>
+            <td><input type="radio" id="doubler" name="prec" value="double" checked /><label for="doubler"><kbd>double</kbd></label></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Algorithm:</legend>
+        <table>
+          <tr>
+            <td><input type="radio" id="Aa" name="algo" value="A" checked /><label for="Aa">\(A\)</label></td>
+            <td><input type="radio" id="Xa" name="algo" value="X" /><label for="Xa">\(X\)</label></td>
+            <td><input type="radio" id="Ya" name="algo" value="Y" /><label for="Ya">\(Y\)</label></td>
+            <td><input type="radio" id="Za" name="algo" value="Z" /><label for="Za">\(Z\)</label></td>
+          </tr>
+        </table>
+      </fieldset>
+      <p>Please choose a binary (little-endian) file, containing the input vector \(\mathbf{x}\) of the selected size and type.<br>
+        <label for="inpf">\(\mathbf{x}\):</label>
+        <input type="file" id="inpf" name="inp" required />
+      </p>
+      <p>Please verify the settings before submitting this form, since no usable error description will be given otherwise.<br>
+        This software comes with no guarantees of any kind, so please do <strong>not</strong> submit any sensitive data.<br>
+        <input type="submit" />
+      </p>
+    </form>
+    <hr>
+    <p><i>Last modified</i>: <time>2025-12-31</time>.</p>
+  </body>
+</html>

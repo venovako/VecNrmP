@@ -85,6 +85,12 @@ CPPFLAGS += -DUSE_REPROBLAS="\"$(REPROBLAS)\"" -I$(REPROBLAS)/include
 REPROFLAGS += -L$(REPROBLAS)/lib -lbinned -lbinnedblas -lreproblas
 endif # REPROBLAS
 
+ifdef CGIC
+CPPFLAGS += -I$(CGIC)
+CGICFLAGS += -L$(CGIC) -lcgic
+EXES += pnrm.cgi
+endif # CGIC
+
 ifdef MARCH
 CPPFLAGS += $(subst VECLEN=32,VECLEN=64,$(PVN_CPPFLAGS))
 CFLAGS=$(CPPFLAGS) $(subst -xHost,-x$(MARCH),$(PVN_CFLAGS))
@@ -96,7 +102,7 @@ FCFLAGS=$(CPPFLAGS) $(PVN_FCFLAGS)
 endif # ?MARCH
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 FLFLAGS=$(subst PIC,PIE,$(FCFLAGS))
-LDFLAGS=$(PVN_LDFLAGS) $(REPROFLAGS) $(FOBJS) $(MKLFLAGS) $(PVN_LIBS)
+LDFLAGS=$(PVN_LDFLAGS) $(CGICFLAGS) $(REPROFLAGS) $(FOBJS) $(MKLFLAGS) $(PVN_LIBS)
 
 .PHONY: all help clean
 
@@ -104,7 +110,7 @@ all: $(FOBJS) $(EXES)
 	@echo "BUILT: $(FOBJS) $(EXES)"
 
 help:
-	@echo $(MAKE) "[LAPACK=...] [REPROBLAS=...] [CC=icx => MARCH=...] [all|clean|help]"
+	@echo $(MAKE) "[LAPACK=...] [REPROBLAS=...] [CGIC=...] [CC=icx => MARCH=...] [all|clean|help]"
 
 %.exe : %.c $(FOBJS) GNUmakefile
 	$(CC) $(CLFLAGS) $< -o $@ $(LDFLAGS)
@@ -114,6 +120,9 @@ help:
 
 Blue.exe: Blue.F90 GNUmakefile
 	$(FC) $(FLFLAGS) -o $@ Blue.F90
+
+pnrm.cgi: pnrm.c pnrm.html GNUmakefile
+	$(CC) $(CLFLAGS) $< -o $@ $(LDFLAGS)
 
 clean:
 	-$(RM) $(EXES)
