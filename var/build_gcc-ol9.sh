@@ -8,11 +8,13 @@ else
 	then
 		cd ../../libpvn/src
 		scl enable gcc-toolset-14 "make COMPILER=gcc NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef MARCH=${TGT} STATIC=-s clean all"
-		cd ../../VecNrmP/src
-		scl enable gcc-toolset-14 "make MARCH=${TGT} REPROBLAS=/opt/ReproBLAS clean all"
+		cd ../../cgic
+		scl enable gcc-toolset-14 "make -f Makefile.pvn clean all"
+		cd ../VecNrmP/src
+		scl enable gcc-toolset-14 "make MARCH=${TGT} REPROBLAS=/opt/ReproBLAS CGIC=../../cgic clean all"
 		rm -frv ../../dist/VecNrmP
 		mkdir -pv ../../dist/VecNrmP
-		cp -fv *.exe ../../dist/VecNrmP
+		cp -fv *.exe *.cgi ../../dist/VecNrmP
 		cd ../..
 		rm -fv VecNrmP.tar*
 		cd dist
