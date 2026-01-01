@@ -80,7 +80,7 @@ int cgiMain()
     goto err;
   }
   cgiHeaderContentType("text/html");
-  (void)fprintf(cgiOut, "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<title>|x|_p</title>\n</head>\n<body>m = %u<br>\np = %#.17e<br>\n|x|_p =%s\n</body>\n</html>\n", m, p, s);
+  (void)fprintf(cgiOut, "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<title>||x||_p</title>\n</head>\n<body>\n<tt>m = %u</tt><br>\n<tt>p =%#.17E</tt><br>\n<tt>||x||_p =%s</tt>\n</body>\n</html>\n", m, p, s);
   ret = EXIT_SUCCESS;
   goto end;
 
@@ -91,9 +91,7 @@ int cgiMain()
   return ret;
 }
 
-#ifndef CGICNOMAIN
 int main(int argc, char *argv[])
 {
   return (cgicMain(argc, argv) ? EXIT_FAILURE : cgiMain());
 }
-#endif /* !CGICNOMAIN */
