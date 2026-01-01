@@ -44,12 +44,11 @@ int cgiMain()
   if (close(fd) || off)
     goto err;
 
-  a <<= 1u;
-  a |= r;
+  r |= (a << 1u);
   char s[26] = { '\0' };
   const float pf = (float)p;
   n = m;
-  switch (a) {
+  switch (r) {
   case 0u:
     (void)pvn_stoa(s, PVN_FABI(pvn_res_nrmp,PVN_RES_NRMP)(&pf, &n, (const float*)x));
     break;
@@ -80,7 +79,7 @@ int cgiMain()
     goto err;
   }
   cgiHeaderContentType("text/html");
-  (void)fprintf(cgiOut, "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<title>||x||_p</title>\n</head>\n<body>\n<tt>m = %u</tt><br>\n<tt>p =%#.17E</tt><br>\n<tt>||x||_p =%s</tt>\n</body>\n</html>\n", m, p, s);
+  (void)fprintf(cgiOut, "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<title>||x||_p</title>\n</head>\n<body>\n<tt>m = %u</tt><br>\n<tt>p = %#.17E</tt><br>\n<tt>a = %s</tt>\n<tt>||x||_p =%s</tt>\n</body>\n</html>\n", m, p, algo[a], s);
   ret = EXIT_SUCCESS;
   goto end;
 
