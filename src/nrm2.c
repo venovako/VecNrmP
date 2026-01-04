@@ -115,8 +115,8 @@ static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const fl
   if (*n == (size_t)2u)
     return hypotf(x[0u], x[1u]);
   const size_t m = *n;
-  const float tsml = scalbnf(1.0f, -63);
-  const float tbig = scalbnf(1.0f,  52);
+  const float tsml = __builtin_scalbnf(1.0f, -63);
+  const float tbig = __builtin_scalbnf(1.0f,  52);
   /* the three Blue's accumulators as in SNRM2 */
   float sml = 0.0f, med = 0.0f, big = 0.0f;
 #ifndef MIMIC_LAPACK
@@ -137,7 +137,7 @@ static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const fl
       if (y < tsml)
 #else /* !MIMIC_LAPACK */
       if (y < FLT_MIN)
-        dnr = hypotf(dnr, scalbnf(y, 23));
+        dnr = hypotf(dnr, __builtin_scalbnf(y, 23));
       else if (y < tsml)
 #endif /* MIMIC_LAPACK */
         sml = hypotf(sml, y);
@@ -149,7 +149,7 @@ static float PVN_FABI(pvn_crs_nrmf,PVN_CRS_NRMF)(const size_t *const n, const fl
   }
 #ifndef MIMIC_LAPACK
   if (dnr > 0.0f)
-    sml = hypotf(sml, scalbnf(dnr, -23));
+    sml = hypotf(sml, __builtin_scalbnf(dnr, -23));
 #endif /* !MIMIC_LAPACK */
   if (sml > 0.0f)
     med = hypotf(med, sml);
@@ -174,8 +174,8 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
   if (*n == (size_t)2u)
     return hypot(x[0u], x[1u]);
   const size_t m = *n;
-  const double tsml = scalbn(1.0, -511);
-  const double tbig = scalbn(1.0,  486);
+  const double tsml = __builtin_scalbn(1.0, -511);
+  const double tbig = __builtin_scalbn(1.0,  486);
   /* the three Blue's accumulators as in DNRM2 */
   double sml = 0.0, med = 0.0, big = 0.0;
 #ifndef MIMIC_LAPACK
@@ -196,7 +196,7 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
       if (y < tsml)
 #else /* !MIMIC_LAPACK */
       if (y < DBL_MIN)
-        dnr = hypot(dnr, scalbn(y, 52));
+        dnr = hypot(dnr, __builtin_scalbn(y, 52));
       else if (y < tsml)
 #endif /* ?MIMIC_LAPACK */
         sml = hypot(sml, y);
@@ -208,7 +208,7 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
   }
 #ifndef MIMIC_LAPACK
   if (dnr > 0.0)
-    sml = hypot(sml, scalbn(dnr, -52));
+    sml = hypot(sml, __builtin_scalbn(dnr, -52));
 #endif /* !MIMIC_LAPACK */
   if (sml > 0.0)
     med = hypot(med, sml);
@@ -223,11 +223,11 @@ static double PVN_FABI(pvn_crd_nrmf,PVN_CRD_NRMF)(const size_t *const n, const d
 
 static double frelerr(const double e, const double f)
 {
-  return ((e == 0.0) ? -0.0 : (__builtin_fabs(e - f) / scalbn(__builtin_fabs(e), -24)));
+  return ((e == 0.0) ? -0.0 : (__builtin_fabs(e - f) / __builtin_scalbn(__builtin_fabs(e), -24)));
 }
 static double erelerr(const double e, const double f)
 {
-  return ((e == 0.0) ? -0.0 : (double)(__builtin_fabsl((long double)e - (long double)f) / scalbnl(__builtin_fabsl((long double)e), -53)));
+  return ((e == 0.0) ? -0.0 : (double)(__builtin_fabsl((long double)e - (long double)f) / __builtin_scalbnl(__builtin_fabsl((long double)e), -53)));
 }
 
 int main(int argc, char *argv[])

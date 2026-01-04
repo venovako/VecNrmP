@@ -3,7 +3,7 @@
 static void s()
 {
   for (int i = -1; i < 0; --i) {
-    if (powf(2.0f, scalbnf(1.0f, i)) == 1.0f) {
+    if (powf(2.0f, __builtin_scalbnf(1.0f, i)) == 1.0f) {
       (void)printf("2.0f ^ (2^%d) == 1.0f\n", i);
       break;
     }
@@ -13,7 +13,7 @@ static void s()
 static void d()
 {
   for (int i = -1; i < 0; --i) {
-    if (pow(2.0, scalbn(1.0, i)) == 1.0) {
+    if (pow(2.0, __builtin_scalbn(1.0, i)) == 1.0) {
       (void)printf("2.0 ^ (2^%d) == 1.0\n", i);
       break;
     }
@@ -23,7 +23,7 @@ static void d()
 static void x()
 {
   for (int i = -1; i < 0; --i) {
-    if (powl(2.0L, scalbnl(1.0L, i)) == 1.0L) {
+    if (powl(2.0L, __builtin_scalbnl(1.0L, i)) == 1.0L) {
       (void)printf("2.0L ^ (2^%d) == 1.0L\n", i);
       break;
     }

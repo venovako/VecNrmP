@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
   char
     fmtm[32] = { '\0' },
     fmtp[32] = { '\0' };
-  const size_t d = (size_t)floorl(log10l(m) + 1.0L);
+  const size_t d = (size_t)__builtin_floorl(__builtin_log10l(m) + 1.0L);
   (void)sprintf(fmtm, "ϵ%%0%zuzu-/ε=%%# .%dRe\n", d, f);
   (void)sprintf(fmtp, "ϵ%%0%zuzu+/ε=%%# .%dRe\n", d, f);
   mpfr_t em, ep, et, ef, ed;

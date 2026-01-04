@@ -2,10 +2,10 @@
 
 static void s()
 {
-  const float one_ = nextafterf(1.0f, 2.0f);
+  const float one_ = __builtin_nextafterf(1.0f, 2.0f);
   float _p = 0.5f;
   float p_ = 1.0f;
-  while (nextafterf(_p, 1.0f) != p_) {
+  while (__builtin_nextafterf(_p, 1.0f) != p_) {
     const float m = (_p + p_) * 0.5f;
     float y = powf(one_, m);
     if (y == one_)
@@ -27,10 +27,10 @@ static void s()
 
 static void d()
 {
-  const double one_ = nextafter(1.0, 2.0);
+  const double one_ = __builtin_nextafter(1.0, 2.0);
   double _p = 0.5;
   double p_ = 1.0;
-  while (nextafter(_p, 1.0) != p_) {
+  while (__builtin_nextafter(_p, 1.0) != p_) {
     const double m = (_p + p_) * 0.5;
     double y = pow(one_, m);
     if (y == one_)
@@ -52,10 +52,10 @@ static void d()
 
 static void x()
 {
-  const long double one_ = nextafterl(1.0L, 2.0L);
+  const long double one_ = __builtin_nextafterl(1.0L, 2.0L);
   long double _p = 0.5L;
   long double p_ = 1.0L;
-  while (nextafterl(_p, 1.0L) != p_) {
+  while (__builtin_nextafterl(_p, 1.0L) != p_) {
     const long double m = (_p + p_) * 0.5L;
     long double y = powl(one_, m);
     if (y == one_)
