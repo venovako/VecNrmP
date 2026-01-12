@@ -100,6 +100,9 @@ CPPFLAGS += $(PVN_CPPFLAGS)
 CFLAGS=$(CPPFLAGS) $(PVN_CFLAGS)
 FCFLAGS=$(CPPFLAGS) $(PVN_FCFLAGS)
 endif # ?MARCH
+ifeq ($(findstring gcc,$(CC)),gcc)
+CFLAGS += -Wno-strict-aliasing
+endif # gcc
 CLFLAGS=$(subst PIC,PIE,$(CFLAGS))
 FLFLAGS=$(subst PIC,PIE,$(FCFLAGS))
 LDFLAGS=$(PVN_LDFLAGS) $(CGICFLAGS) $(REPROFLAGS) $(FOBJS) $(MKLFLAGS) $(PVN_LIBS)
