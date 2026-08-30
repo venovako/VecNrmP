@@ -7,7 +7,7 @@ else
 	if [ "${TGT}" != "Host" ]
 	then
 		cd ../../libpvn/src
-		scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=DET,SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr NATIVE=haswell MARCH=${TGT} STATIC=-s clean all"
+		scl enable gcc-toolset-14 "make COMPILER=icx NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr NATIVE=haswell MARCH=${TGT} STATIC=-s clean all"
 		rm -frv ../../dist
 		mkdir -pv ../../dist/libpvn
 		cp -fv libpvn.* pvn*.exe ../etc/*.exe ../../dist/libpvn

@@ -6,7 +6,7 @@ This software is a supplementary material for the paper:
 
 For building [libpvn](https://github.com/venovako/libpvn) and this repository please invoke `make help` from the `src` subdirectory and see the examples in `var/build_*.sh` scripts.
 They probably have to be tailored to each particular system.
-If the GNU compilers come with a suffix, e.g., `-15`, then set the `GNU` variable to it.
+If the GNU compilers come with a suffix, e.g., `-16`, then set the `GNU` variable to it.
 
 There are several testers available:
 - `src/laf_relerr.exe` computes relative error bounds for the Algorithm L,

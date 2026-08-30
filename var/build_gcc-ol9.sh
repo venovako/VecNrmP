@@ -7,7 +7,7 @@ else
 	if [ "${TGT}" != "Host" ]
 	then
 		cd ../../libpvn/src
-		scl enable gcc-toolset-14 "make COMPILER=gcc NDEBUG=3 SAFE=DET,SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef NATIVE=haswell MARCH=${TGT} STATIC=-s clean all"
+		scl enable gcc-toolset-14 "make COMPILER=gcc NDEBUG=3 SAFE=SV2,NRM VECLEN=64 GMP=/opt/gmp MPFR=/opt/mpfr SLEEF=/opt/sleef NATIVE=haswell MARCH=${TGT} STATIC=-s clean all"
 		cd ../../cgic
 		scl enable gcc-toolset-14 "make -f Makefile.pvn clean all"
 		cd ../VecNrmP/src
