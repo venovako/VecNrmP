@@ -13,8 +13,8 @@ There are several testers available:
 - `src/crd_relerr.exe` computes relative error bounds for the Algorithm C,
 - `src/reh_relerr.exe`, combined with the script `var/rh_relerr.sh`, computes relative error bounds for the Algorithm A,
 - `src/rhh_relerr.exe`, combined with the script `var/rh_relerr.sh`, computes relative error bounds for the Algorithm H,
-- `src/nrm2.exe`, combined with the scripts `var/seq.sh` and `var/qes.sh`, runs the sequential 2-norm tests,
+- `src/nrm2.exe`, combined with the script `var/seq.sh`, runs the sequential 2-norm tests,
 - `src/nrm2.exe`, combined with the script `var/cilk.sh`, runs the OpenCilk-parallel 2-norm tests, and
-- `src/nrmp.exe`, combined with the scripts `var/parp.sh` and `var/ppar.sh`, runs the OpenCilk-parallel p-norm tests.
+- `src/nrmp.exe`, combined with the script `var/parp.sh`, runs the OpenCilk-parallel p-norm tests.
 
 This work has been supported in part by Croatian Science Foundation under the project IP-2014-09-3670 ([MFBDA](https://web.math.pmf.unizg.hr/mfbda/)).
