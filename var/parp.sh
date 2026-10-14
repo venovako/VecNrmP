@@ -3,21 +3,18 @@ source ./env.sh
 cd ../src
 if [ "$2" = "half" ]
 then
-	for O in ndp udp
-	do
-		echo -n "Running ${O}.sh with $1 workers ... "
-		../var/${O}.sh $1
-		echo "done"
-		mv -fv ${O}*.out ${O}*.err ../var
-	done
+	O1=ndp
+	O2=udp
 else
-	for O in dnp dup
-	do
-		echo -n "Running ${O}.sh with $1 workers ... "
-		../var/${O}.sh $1
-		echo "done"
-		mv -fv ${O}*.out ${O}*.err ../var
-	done
+	O1=dnp
+	O2=dup
 fi
+for O in ${O1} ${O2}
+do
+	echo -n "Running ${O}.sh with $1 workers ... "
+	../var/${O}.sh $1
+	echo "done"
+	mv -fv ${O}*.out ${O}*.err ../var
+done
 cd ../var
-unset O
+unset O2 O1 O
