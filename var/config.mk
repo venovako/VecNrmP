@@ -1,14 +1,14 @@
 # select binary installation directory
-BIN_DIR := /opt/ReproBLAS/bin
+BIN_DIR := $(HOME)/gnu/bin
 
 # select library installation directory
-LIB_DIR := /opt/ReproBLAS/lib
+LIB_DIR := $(HOME)/gnu/lib
 
 # select header installation directory
-INC_DIR := /opt/ReproBLAS/include
+INC_DIR := $(HOME)/gnu/include
 
 # select documentation installation directory
-DOC_DIR := /opt/ReproBLAS/share/doc/reproBLAS2
+DOC_DIR := $(HOME)/gnu/share/doc/reproBLAS2
 
 # select compiler (comment all for auto)
 #CC = cc
