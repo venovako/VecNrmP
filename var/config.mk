@@ -43,7 +43,7 @@ BUILD_MPI = false
 #MPICFLAGS =
 
 # select python (comment all for auto)
-#PYTHON = python
+PYTHON = python2
 #PYTHON = python3
 
 # optionally disable vectorization (comment all for best available)
