@@ -1,20 +1,31 @@
 #!/bin/bash
 source ./env.sh
 cd ../src
+if [ -z "$1" ]
+then
+	W=1
+else
+	W=$1
+fi
 if [ "$2" = "half" ]
 then
-	O1=ndp
-	O2=udp
-else
-	O1=dnp
-	O2=dup
-fi
-for O in ${O1} ${O2}
-do
-	echo -n "Running ${O}.sh with $1 workers ... "
-	../var/${O}.sh $1
+	echo -n "Running ndp.sh with $W workers ... "
+	../var/ndp.sh $W < ../var/nseed.txt
 	echo "done"
-	mv -fv ${O}*.out ${O}*.err ../var
-done
+	mv -fv ndp*.out ndp*.err ../var
+	echo -n "Running udp.sh with $W workers ... "
+	../var/udp.sh $W < ../var/useed.txt
+	echo "done"
+	mv -fv udp*.out udp*.err ../var
+else
+	echo -n "Running dnp.sh with $W workers ... "
+	../var/dnp.sh $W < ../var/nseed.txt
+	echo "done"
+	mv -fv dnp*.out dnp*.err ../var
+	echo -n "Running dup.sh with $W workers ... "
+	../var/dup.sh $W < ../var/useed.txt
+	echo "done"
+	mv -fv dup*.out dup*.err ../var
+fi
 cd ../var
-unset O2 O1 O
+unset W

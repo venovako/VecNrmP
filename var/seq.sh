@@ -3,22 +3,29 @@ source ./env.sh
 cd ../src
 if [ "$1" = "half" ]
 then
-	O1=nd
-	O2=ud
-	O3=ns
-	O4=us
+	for T in d s
+	do
+		echo -n "Running n${T}.sh ... "
+		../var/n${T}.sh < ../var/nseed.txt
+		echo "done"
+		mv -fv n${T}*.out n${T}*.err ../var
+		echo -n "Running u${T}.sh ... "
+		../var/u${T}.sh < ../var/useed.txt
+		echo "done"
+		mv -fv u${T}*.out u${T}*.err ../var
+	done
 else
-	O1=dn
-	O2=du
-	O3=sn
-	O4=su
+	for T in d s
+	do
+		echo -n "Running ${T}n.sh ... "
+		../var/${T}n.sh < ../var/nseed.txt
+		echo "done"
+		mv -fv ${T}n*.out ${T}n*.err ../var
+		echo -n "Running ${T}u.sh ... "
+		../var/${T}u.sh < ../var/useed.txt
+		echo "done"
+		mv -fv ${T}u*.out ${T}u*.err ../var
+	done
 fi
-for O in ${O1} ${O2} ${O3} ${O4}
-do
-	echo -n "Running ${O}.sh ... "
-	../var/${O}.sh
-	echo "done"
-	mv -fv ${O}*.out ${O}*.err ../var
-done
 cd ../var
-unset O4 O3 O2 O1 O
+unset T
