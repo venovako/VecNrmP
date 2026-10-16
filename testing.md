@@ -27,7 +27,7 @@ With OpenCilk, the MKL and ReproBLAS testing is meant to be skipped, and the Ref
 
 ReproBLAS can be built with the `var/config.mk` file and [Python2](https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tar.xz "Python-2.7.18").
 
-If `CGIC` variable is to be set, please clone [cgic](https://github.com/venovako/cgic "cgic").
+If `CGIC` variable is to be set, please clone my [cgic](https://github.com/venovako/cgic "cgic") fork.
 
 Static Linux executables for the Intel Cascadelake CPUs have been built on Oracle Linux 9.7 and can be downloaded as [VecNrmP.tar.zst](https://venovako.eu/x86_64/VecNrmP.tar.zst "Cascadelake").
 HACK: the static `glibc` library (2.41.9000-16.fc43) has been taken from a Fedora RPM.

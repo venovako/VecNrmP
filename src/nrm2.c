@@ -267,8 +267,8 @@ int main(int argc, char *argv[])
     ls.s[3u] = UINT16_C(0);
     if (PVN_FABI(pvn_ran_close,PVN_RAN_CLOSE)(&u))
       return 6;
-    (void)fprintf(stderr, "SEED = %15llu\n", ls.l);
   }
+  (void)fprintf(stderr, "SEED = %15llu\n", ls.l);
   const size_t n = (size_t)((n_ < 0ll) ? -n_ : n_);
   void *const x = aligned_alloc((size_t)64u, (n * ((idist < 0) ? sizeof(float) : sizeof(double))));
   if (!x)
