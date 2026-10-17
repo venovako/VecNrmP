@@ -1,3 +1,6 @@
+Google Cloud c2-standard-4 instance:
+Intel Cascade Lake, 1 vCPU per core, 2 cores, 16 GB RAM
+
 gcc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4.0.1)
-gcc-toolset-15-env: sn su
+gcc-toolset-15-env: dn du sn su
 gcc (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)
