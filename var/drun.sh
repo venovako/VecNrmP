@@ -1,4 +1,8 @@
 #!/bin/bash
+# to be run on Google Cloud
+# instances (1 vCPU per core, 2 cores, 16 GB RAM):
+# * c2-standard-4 Intel Cascadelake CPU @ 3.10 GHz
+# * n4a-highmem-2 Google Neoverse-N3 CPU @ 3.4 GHz
 ./nrm2.exe  1073741824  84225929407270 >  du1.out 2>  du1.err
 ./nrm2.exe -1073741824  25944849203584 >  dn1.out 2>  dn1.err
 ./nrm2.exe  1073741824 133283450964053 >  du2.out 2>  du2.err
