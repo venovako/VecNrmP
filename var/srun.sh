@@ -1,8 +1,5 @@
 #!/bin/bash
-# to be run on Google Cloud
-# instances (1 vCPU per core, 2 cores):
-# * c4-standard-4 Intel Granite Rapids CPU
-# * n4a-highmem-2 Google Neoverse-N3 CPU
+# to be run on Google Cloud n4d-standard-4 instance
 ./nrm2.exe  1073741824  -84225929407270 >  su1.out 2>  su1.err &
 ./nrm2.exe -1073741824  -25944849203584 >  sn1.out 2>  sn1.err &
 wait

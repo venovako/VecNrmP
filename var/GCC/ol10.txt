@@ -1,4 +1,4 @@
-Google Cloud c4-standard-4 instance:
-Intel Granite Rapids, 1 vCPU per core, 2 cores, 15 GB RAM
+Google Cloud n4d-standard-4 instance:
+AMD EPYC 9B45 (Turin), 1 vCPU per core, 2 cores, 16 GB RAM
 gcc-toolset-15-env: dn du sn su
 gcc (GCC) 15.2.1 20260123 (Red Hat 15.2.1-8)
